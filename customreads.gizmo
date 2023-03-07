@@ -1,0 +1,35 @@
+#! C:/Program Files/Nuke13.2v1/nuke-13.2.1.dll -nx
+version 13.2 v1
+Group {
+ onCreate "import customread;customread.customreads()"
+ name customread
+ inputs 0
+ help "Creates all the reads for the found aovs"
+ note_font "Verdana Bold"
+ note_font_size 15
+ postage_stamp true
+ addUserKnob {20 customread}
+ addUserKnob {2 project t "Path where the \"episodes\" folders are."}
+ project P:/AndreJukebox_output/renders
+ addUserKnob {1 structure t "Any other folders between the shot folder and the layer folder, in AndreJukebox structure case, final renders are split between lgt (lighting) and nuke (comp)."}
+ structure lgt
+ addUserKnob {22 initialize l Initialize t "Starts the user panel to introduce the episode/sequence/shot/layer/version from which to create the reads." T "import importlib\nimport customread\nimportlib.reload(customread)\ncustomread.customreads().knobstart()" +STARTLINE}
+ addUserKnob {22 clean l Clean t "Reset the node to it's minimal state." -STARTLINE T "import importlib\nimport customread\nimportlib.reload(customread)\ncustomread.customreads().cleannodes()\ncustomread.customreads().cleanui()\n"}
+ addUserKnob {22 reload l Reload t "Reloads all the reads inside the group." -STARTLINE T customread.customreads().reloadreads()}
+ addUserKnob {26 ""}
+ addUserKnob {2 Filepath}
+ addUserKnob {22 fileoverride l Create -STARTLINE T "import importlib\nimport customread\nimportlib.reload(customread)\ncustomread.customreads().cleannodes()\ncustomread.customreads().checkclean()\ncustomread.customreads().customaovharvest()"}
+ addUserKnob {22 openfolder l "Open in Explorer" -STARTLINE T "import importlib\nimport customread\nimportlib.reload(customread)\ncustomread.customreads().openexplorer()"}
+ addUserKnob {22 openrgbarv l "Open in RV" t "Will load rgba sequence from the corresponding layer." -STARTLINE T "import importlib\nimport customread\nimportlib.reload(customread)\ncustomread.customreads().openseqrv()"}
+ addUserKnob {3 Start}
+ addUserKnob {3 End -STARTLINE}
+ addUserKnob {22 set l Set t "Frame override. Type in the frames and hit \"Set\", it will set all the reads inside to the new frame range. Those will be revert back to original frames whenever you hit create again." -STARTLINE T "import importlib\nimport customread\nimportlib.reload(customread)\ncustomread.customreads().overrideframes()"}
+ addUserKnob {26 ""}
+}
+ Output {
+  inputs 0
+  name Output1
+  xpos 5130
+  ypos 321
+ }
+end_group
