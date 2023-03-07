@@ -16,17 +16,18 @@ class customreads():
         self.framenr = "%04d"
         self.colorspace = "linear"
         self.extension = "exr"
+        self.depthaov = 'depth'
         self.userbuttons = ["episode", "seq", "shot", "layer", "version", " ", "create", "populate",]
         self.buttontype = ('shader', 'data', 'crypto', 'lightgroups', 'custom')
         self.shaderaov = ['diffuse', 'coat', 'specular', 'sss', 'emission','sheen','check_user_albedo']
-        self.dataaov = ['check_user_P','N','Z','motionvector','background','cputime']
+        self.dataaov = ['check_user_P','N',self.depthaov,'motionvector','background','cputime']
         self.cryptoaov = ['crypto_asset','crypto_object','crypto_material']
         self.lightgroupsaov = []
         self.customaov = []
         self.dictread()
         self.customtypehidden()
+        # self.knobstart() probar con un if para que no se ejecute cada vez que abro un script.
         nuke.addKnobChanged(self.read, nodeClass='Group', node=self.group)
-
 
     def customtypehidden(self):
         customknobs = self.group.allKnobs()
@@ -43,11 +44,11 @@ class customreads():
 
     def knobstart(self):
         self.createreadtabs()
-        epsearchexp = "{self.project}/*".format(project=self.project)
+        epsearchexp = f"{self.project}/*"
         self.epsearchpath = os.path.abspath(epsearchexp)
         epfolder = glob.glob(self.epsearchpath)
         self.episode = epfolder[0]
-        seqsearchexp = "{self.episode}/*".format(episode=self.episode)
+        seqsearchexp = f"{self.episode}/*"
         self.seqsearchpath = os.path.abspath(seqsearchexp)
         seqfolder = glob.glob(self.seqsearchpath)
         if seqfolder:
@@ -55,7 +56,7 @@ class customreads():
         else:
             self.seq = ['']
 
-        shotsearchexp = "{self.seq}/*".format(seq=self.seq)
+        shotsearchexp = f"{self.seq}/*"
         self.shotsearchpath = os.path.abspath(shotsearchexp)
         shotfolder = glob.glob(self.shotsearchpath)
         if shotfolder:
@@ -63,7 +64,7 @@ class customreads():
         else:
             self.shot = ['']
 
-        layersearchexp = "{self.shot}/{self.structure}/*".format(shot=self.shot, structure=self.structure)
+        layersearchexp = f"{self.shot}/{self.structure}/*"
         self.layersearchpath = os.path.abspath(layersearchexp)
         layerfolder = glob.glob(self.layersearchpath)
         if layerfolder:
@@ -71,7 +72,7 @@ class customreads():
         else:
             self.layer = ['']
 
-        versionsearchexp = "{self.layer}/*".format(layer=self.layer)
+        versionsearchexp = f"{self.layer}/*"
         self.versionsearchpath = os.path.abspath(versionsearchexp)
         versionfolder = glob.glob(self.versionsearchpath)
         if versionfolder:
@@ -110,8 +111,6 @@ class customreads():
 
     # Clears the user tab, deletes all nodes inside the self.group (except for "Ouput") and resets all labels and
     def cleannodes(self):
-        # with self.group:
-        # all_nodes = nuke.allNodes()
         all_nodes = self.group.nodes()
         for delnodes in all_nodes:
             if not "Output" in delnodes.name():
@@ -161,9 +160,6 @@ customread.customreads().""" + aovbutton + 'aovbutton()'
         ctmstring = nuke.String_Knob('ctm', 'Custom pattern', '')
         self.group.addKnob(ctmstring)
 
-        # dividetabline = nuke.Text_Knob(' ')
-        # self.group.addKnob(dividetabline)
-
     def cleantabs(self):
         tab_knobs = self.group.allKnobs()
         for tabs in tab_knobs:
@@ -171,7 +167,6 @@ customread.customreads().""" + aovbutton + 'aovbutton()'
                     self.group.removeKnob(tabs)
                 if tabs.name() in ("aov_tab","all","none","lgt","ctm"):
                     self.group.removeKnob(tabs)
-
 
     def shaderaovbutton(self):
         self.enableaovs(self.shaderaov)
@@ -220,10 +215,10 @@ customread.customreads().""" + aovbutton + 'aovbutton()'
         knobchecks = self.group.allKnobs()
         for i in knobchecks:
             if "check_user" in i.name():
+                print("turn EVERYTHING OFF BIATCH")
                 self.group.knob(i.name()).setValue(0)
             else:
                 pass
-
 
     def enableaovs(self,checkaovlist):
         knobchecks = self.group.allKnobs()
@@ -238,16 +233,9 @@ customread.customreads().""" + aovbutton + 'aovbutton()'
                 else:
                     pass
 
-
-
     def buttongenerate(self,button,searchpath):
         pathitem = os.path.abspath(searchpath)
         item = glob.glob(pathitem)
-        # alltheseitems = self.group.allKnobs()
-        # for ieps in alltheseitems:
-        #     if button in ieps.name():
-        #         self.group.removeKnob(ieps)
-        
         additem = []
         for i in item:
             p = i.rsplit("\\")
@@ -259,9 +247,6 @@ customread.customreads().""" + aovbutton + 'aovbutton()'
         else:
             itemknob = self.group.knobs()[button]
             itemknob.setValues(additem)
-            # itemknob.setValue(additem[0])
-        # itemknob = nuke.Enumeration_Knob(button, button, additem)
-        # self.group.addKnob(itemknob)
 
     def checkclean(self):
         allchecks = self.group.allKnobs()
@@ -272,20 +257,15 @@ customread.customreads().""" + aovbutton + 'aovbutton()'
     def checkbox(self,checkbox):
         if not checkbox in ("rgba","beauty"):
             checkname = "check_user_" + checkbox
-            knobcheck = nuke.Boolean_Knob(checkname, checkbox, 1)
+            knobcheck = nuke.Boolean_Knob(checkname, checkbox, 0)
             self.group.addKnob(knobcheck)
+            knobcheck.setValue(1)
             self.group[checkname].setFlag(nuke.STARTLINE)
 
     def connectchecks(self):
-        # with self.group:
+
         selectreads = nuke.allNodes("Read")
         for t in selectreads:
-            # print(t.name())
-            # if t.name() in "Z":
-            #     print(t.name())
-            #     self.zmerge = nuke.toNode('Z')
-            #     selectreads.append(self.zmerge)
-            # if t.name() not in "Z":
             if not "beauty" in t.name():
                 t.knob("disable").setExpression('parent.check_user_' + t.name() + ' == 1 ? 0 : 1')
                 shufflenames = t.name() + '_shf'
@@ -300,8 +280,6 @@ customread.customreads().""" + aovbutton + 'aovbutton()'
         self.layer = self.group.knob('layer').value()
 
     def update(self):
-        # self.cleanreadtabs()
-        # self.createreadtabs()
         self.currentknobs()
         buttoncurrent = ['episode','seq','shot','layer','version']
         for buttons in buttoncurrent:
@@ -311,26 +289,16 @@ customread.customreads().""" + aovbutton + 'aovbutton()'
             layer = self.group.knob('layer').value()
             # Dictionary with current knob values
             buttonupdate = {
-                "episode": "{self.project}/*".format(project=self.project),
-                "seq": "{self.project}/{self.episode}/*".format(project=self.project, episode=episode),
-                "shot": "{self.project}/{self.episode}/{self.seq}/*".format(project=self.project, episode=episode, seq=seq),
-                "layer": "{self.project}/{self.episode}/{self.seq}/{self.shot}/{self.structure}/*".format(project=self.project,
-                                                                                 episode=episode, seq=seq,
-                                                                                 shot=shot,
-                                                                                 structure=self.structure),
-                "version": "{self.project}/{self.episode}/{self.seq}/{self.shot}/{self.structure}/{self.layer}/*".format(project=self.project,
-                                                                                           episode=episode,
-                                                                                           seq=seq, shot=shot,
-                                                                                           structure=self.structure,
-                                                                                           layer=layer)
+                "episode": f"{self.project}/*",
+                "seq": f"{self.project}/{episode}/*",
+                "shot": f"{self.project}/{episode}/{seq}/*",
+                "layer": f"{self.project}/{episode}/{seq}/{shot}/{self.structure}/*",
+                "version": f"{self.project}/{episode}/{seq}/{shot}/{self.structure}/{layer}/*"
             }
             for butup in buttonupdate:
-                # but = butup
                 searchpath = buttonupdate[butup]
                 currentvalue = self.group.knob(butup).value()
                 self.buttongenerate(button=butup,searchpath=searchpath)
-                # self.group.knob(but).setValue(currentvalue)
-        # self.usergui()
 
     def nodeconnect(self):
         # reads connect for reformat
@@ -350,10 +318,8 @@ customread.customreads().""" + aovbutton + 'aovbutton()'
             if not r.name() == "Z":
                 nuke.Layer(r.name(),[r.name()+'.red',r.name()+'.green',r.name()+'.blue',r.name()+'.alpha'])
 
-            if r.name() not in ('crypto_asset','crypto_object','crypto_material','Z'):
-            # if "crypto" not in r.name():
+            if r.name() not in ('crypto_asset','crypto_object','crypto_material',self.depthaov):
                 refin.setInput(0, r)
-                # if not r.name() == "Z":
                 shfin.knob('out1').setValue(r.name())
                 if r.name() == "beauty":
                     shfin.knob('out1').setValue('rgba')
@@ -362,9 +328,6 @@ customread.customreads().""" + aovbutton + 'aovbutton()'
             if "crypto" in r.name():
                 refin.setInput(0, readin)
         createMerge = nuke.nodes.Merge2(name="aovmerge", A="none", also_merge="all", metainput="All")
-        # readnodes = nuke.allNodes(filter='Shuffle2')
-        # zmergeshuffle = nuke.toNode('Z_shf')
-        # readnodes.append(zmergeshuffle)
         reformatnodes = nuke.allNodes(filter='Reformat')
         nro = 0
         for plugs in readnodes:
@@ -383,17 +346,7 @@ customread.customreads().""" + aovbutton + 'aovbutton()'
                 nro = nro + 1
             if "crypto" in plugs.name():
                 createMerge.setInput(nro, plugs)
-
-        # aovmerge = nuke.toNode('aovmerge')
-        # out = nuke.toNode("Output1")
-        # out.setInput(0, aovmerge)
-
-        # zshuffle = nuke.toNode('Z_shf')
-        # zshuffle.knob('out1').setValue('depth')
-        # zshuffle.knobs()["mappings"].setValue("rgba.red", "depth.Z")
-
         nuke.toNode("Output1").setInput(0, nuke.toNode('aovmerge'))
-
 
     def aovharvest(self):
         # with self.group:
@@ -408,12 +361,7 @@ customread.customreads().""" + aovbutton + 'aovbutton()'
 
         # STRING EXTRACTION
         # Sequence path
-        framepath = "{self.project}/{self.episode}/{self.seq}/{self.shot}/{self.structure}/{self.layer}/{version}/".format(project=project,
-                                                                                            episode=episode, seq=seq,
-                                                                                            shot=shot,
-                                                                                            structure=structure,
-                                                                                            layer=layer,
-                                                                                            version=version)
+        framepath = f"{project}/{episode}/{seq}/{shot}/{structure}/{layer}/{version}/"
         # Converting all / to system defaults
         searchaovs = os.path.abspath(framepath + "*")
 
@@ -424,16 +372,6 @@ customread.customreads().""" + aovbutton + 'aovbutton()'
         searchpaths = os.path.abspath(framepath + aovfolder + "/*" + "." + self.extension)
         files = glob.glob(searchpaths)
         if files:
-            # Selecting only the 1st exr in the list
-            # exrfile = os.path.abspath(files[0])
-
-            # Storing digits between . and a .
-            # framestart = re.search("\.\d{4}(?:\.*)*", os.path.abspath(files[0]))
-            # frameend = re.search("\.\d{4}(?:\.*)*", os.path.abspath(files[-1]))
-
-            # Matching the digits only
-            # framestartnumber = re.search("\d{4}", framestart.group(0))
-            # frameendnumber = re.search("\d{4}", frameend.group(0))
 
             # Storing the clean numbers in a variable
             setframestart = self.seqsdict[self.group.knob('seq').value()][self.group.knob('shot').value()]['start']
@@ -446,9 +384,7 @@ customread.customreads().""" + aovbutton + 'aovbutton()'
             for aovcomp in aovfolders:
                 singleaov = aovcomp.rsplit("\\", -1)[-1]
 
-                aovfullpath = "{framepath}{singleaov}/{self.layer}_{singleaovfile}.{framenr}.{colorspace}.{extension}".format(
-                    framepath=framepath, singleaov=singleaov, layer=layer, singleaovfile=singleaov,
-                    framenr=self.framenr, colorspace=self.colorspace, extension=self.extension)
+                aovfullpath = f"{framepath}{singleaov}/{layer}_{singleaov}.{self.framenr}.{self.colorspace}.{self.extension}"
                 self.checkbox(singleaov)
 
             #set paths strings and frame range
@@ -463,33 +399,17 @@ customread.customreads().""" + aovbutton + 'aovbutton()'
                     nuke.nodes.Read(file=nukepaths, first=setframestart, last=setframeend, name=singleaov,
                                     on_error="nearest frame")
 
-
                     # Create reformats and shuffles
-                    # if not "crypto" in singleaov:
-                    if singleaov not in ('crypto_asset','crypto_object','crypto_material','Z'):
-                        # print('NOT',singleaov)
-                        nuke.nodes.Reformat(name=singleaov + '_ref')
+                    if singleaov not in ('crypto_asset','crypto_object','crypto_material','depth','P','N','AA_inv_density','Pref'):# self.depthaov):
+                        nuke.nodes.Reformat(name=singleaov + '_ref', filter='Lanczos4')
                         nuke.nodes.Shuffle2(name=singleaov + '_shf')
-
-                    elif singleaov not in "Z":
-                        # print('YUP',singleaov)
+                    elif singleaov not in self.depthaov:
                         nuke.nodes.Reformat(name=singleaov + '_ref', filter='impulse')
+                        nuke.nodes.Shuffle2(name=singleaov + '_shf')
 
 
         else:
-            print('No proper structure found for {self.layer}'.format(layer=layer))
-
-        # import ptvsd
-        # ptvsd.enable_attach(address=('localhost',3000))
-        # ptvsd.wait_for_attach()
-        # breakpoint()
-
-        # self.nodeconnect()
-        # self.connectchecks()
-        # self.labelset()
-        # self.setrootframes()
-
-
+            print('No proper structure found for f´{layer}')
 
     def customaovharvest(self):
         # Clean self.group
@@ -518,6 +438,7 @@ customread.customreads().""" + aovbutton + 'aovbutton()'
 
         # create the reads and the reformats
         aovpaths = glob.glob(aovsearch)
+        
         for aovitem in aovpaths:
             singleaov = aovitem.rsplit('\\')[-1]
             self.checkbox(singleaov)
@@ -528,11 +449,12 @@ customread.customreads().""" + aovbutton + 'aovbutton()'
                 setpath = re.sub("beauty", singleaov, self.customfile)
                 nuke.nodes.Read(file=re.sub(r'\\','/',setpath), first=setframestart, last=setframeend, name=singleaov,
                                 on_error="nearest frame")
-                if singleaov not in ('crypto_asset','crypto_object','crypto_material','Z'):
-                    nuke.nodes.Reformat(name=singleaov + '_ref')
+                if singleaov not in ('crypto_asset','crypto_object','crypto_material','depth','P','N','AA_inv_density','Pref'):
+                    nuke.nodes.Reformat(name=singleaov + '_ref', filter='Lanczos4')
                     nuke.nodes.Shuffle2(name=singleaov + '_shf')
-                elif singleaov not in "Z":
+                elif singleaov not in self.depthaov:
                     nuke.nodes.Reformat(name=singleaov + '_ref', filter='impulse')
+                    nuke.nodes.Shuffle2(name=singleaov + '_shf')
         self.nodeconnect()
         self.connectchecks()
         self.customlabel()
@@ -569,7 +491,6 @@ customread.customreads().realoadfunc"""
 
     def read(self):
         knobflick = nuke.thisKnob()
-        # print('callback!')
         if knobflick.name() in ("episode","seq","shot","layer","version"):
             self.update()
 
@@ -594,8 +515,7 @@ customread.customreads().realoadfunc"""
         shot = self.group.knob('shot').value()
         layer = self.group.knob('layer').value()
         version = self.group.knob('version').value()
-        self.grouplabel = '{self.seq}_{self.shot}\n{self.layer}\n{version}'.format(seq=seq,shot=shot,
-                                                                    layer=layer,version=version)
+        self.grouplabel = f'{seq}_{shot}\n{layer}\n{version}'
         self.group.knob('label').setValue(self.grouplabel)
 
     def customlabel(self):
@@ -606,8 +526,7 @@ customread.customreads().realoadfunc"""
         ststart = self.group.knob('Start').value()
         stend = self.group.knob('End').value()
         version = self.customfile.split('\\')[8]
-        self.grouplabel = '{self.seq}_{self.shot}\n{self.layer}\n{version}'.format(seq=seq,shot=shot,
-                                                                    layer=layer, version=version)
+        self.grouplabel = f'{seq}_{shot}\n{layer}\n{version}'
         self.group.knob('label').setValue(self.grouplabel)
 
     def openexplorer(self):
@@ -631,21 +550,12 @@ customread.customreads().realoadfunc"""
     def zconnect(self):
         allreads = nuke.allNodes("Read")
         for zread in allreads:
-            if zread.name() in "Z":
-                zread = nuke.toNode('Z')
-                createZref = nuke.nodes.Reformat(name='Z_ref')
-                createZmerge = nuke.nodes.Merge2(name="Z_shf", A="none", output = 'depth' )
+            if zread.name() in self.depthaov:
+                zread = nuke.toNode(self.depthaov)
+                createZref = nuke.nodes.Reformat(name=self.depthaov + '_ref', filter='impulse')
+                createZmerge = nuke.nodes.Merge2(name=self.depthaov + "_shf", A="none", output = self.depthaov )
                 createZref.setInput(0, zread)
                 createZmerge.setInput(0, createZref)
-
-
-        # zshuffle = nuke.toNode('Z_shf')
-        # nuke.Layer('depth2',['depth2'+'.red','depth2'+'.green','depth2' +'.blue','depth2' +'.alpha','depth2' +'.Z'])
-        # zshuffle.knob('out1').setValue('depth2')
-        # zshufflemap = zshuffle.knob("mappings")
-        # zshufflemap.setValue([(0, 'rgba.red', 'depth2.Z')])#, (0, 'depth.Z', 'rgba.green'), (0, 'depth.Z', 'rgba.blue'), (0, 'depth.Z', 'rgba.alpha')])
-        # zshufflemap.setValue("rgba.red", "depth2.Z")
-
 
     # Funtions for the buttons
     def createfunc(self):
