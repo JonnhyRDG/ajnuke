@@ -1,0 +1,325 @@
+#! C:/Program Files/Nuke13.0v3/nuke-13.0.3.dll -nx
+version 13.0 v3
+Gizmo {
+ inputs 2
+ addUserKnob {20 User}
+ addUserKnob {41 blackpoint T pos_grade.blackpoint}
+ addUserKnob {41 whitepoint T pos_grade.whitepoint}
+ addUserKnob {6 preview l "preview mask" +STARTLINE}
+ addUserKnob {6 effect l "effect only" -STARTLINE}
+ addUserKnob {6 disableNode l disable -STARTLINE}
+ addUserKnob {26 ""}
+ addUserKnob {41 translate l red_dist T red_transf.translate}
+ addUserKnob {41 scale_1 l scale T red_transf.scale}
+ addUserKnob {26 "" +STARTLINE}
+ addUserKnob {41 translate_1 l green_dist T green_transf.translate}
+ addUserKnob {41 scale_2 l scale T green_transf.scale}
+ addUserKnob {26 "" +STARTLINE}
+ addUserKnob {41 translate_2 l blue_dist T blue_transf.translate}
+ addUserKnob {41 scale T blue_transf.scale}
+ addUserKnob {26 ""}
+ addUserKnob {6 custom l "custom mask" -STARTLINE}
+}
+ Input {
+  inputs 0
+  name mask
+  xpos -410
+  ypos -393
+  number 1
+ }
+ Input {
+  inputs 0
+  name Input1
+  xpos -552
+  ypos -393
+ }
+ Dot {
+  name Dot13
+  xpos -518
+  ypos -246
+ }
+set N2b059000 [stack 0]
+ Dot {
+  name Dot5
+  xpos -518
+  ypos -114
+ }
+set N2b058c00 [stack 0]
+ Dot {
+  name Dot8
+  xpos -518
+  ypos 227
+ }
+set N2b058800 [stack 0]
+push $N2b058c00
+ Dot {
+  name Dot1
+  xpos -218
+  ypos -114
+ }
+add_layer {P_P P_P.X P_P.Y P_P.Z}
+ Shuffle2 {
+  fromInput1 {{0} B}
+  in1 P_P
+  fromInput2 {{0} B}
+  mappings "4 black -1 -1 rgba.alpha 0 3 P_P.X 0 0 rgba.red 0 0 P_P.Y 0 1 rgba.green 0 1 P_P.Z 0 2 rgba.blue 0 2"
+  name Shuffle2
+  xpos -252
+  ypos -64
+ }
+ Shuffle2 {
+  fromInput1 {{0} B}
+  fromInput2 {{0} B}
+  mappings "4 rgba.green 0 1 rgba.green 0 1 rgba.green 0 1 rgba.red 0 0 rgba.green 0 1 rgba.blue 0 2 rgba.green 0 1 rgba.alpha 0 3"
+  name Shuffle3
+  xpos -252
+  ypos -40
+ }
+ Grade {
+  blackpoint 100
+  whitepoint 20
+  name pos_grade
+  xpos -252
+  ypos -16
+ }
+ Shuffle2 {
+  fromInput1 {{0} B}
+  fromInput2 {{0} B}
+  mappings "4 rgba.red 0 0 rgba.red 0 0 rgba.red 0 0 rgba.green 0 1 rgba.red 0 0 rgba.blue 0 2 rgba.red 0 0 rgba.alpha 0 3"
+  name Shuffle7
+  xpos -252
+  ypos 8
+ }
+ Copy {
+  inputs 2
+  from0 rgba.alpha
+  to0 rgba.alpha
+  name Copy2
+  xpos -252
+  ypos 218
+ }
+ Premult {
+  name Premult2
+  xpos -252
+  ypos 254
+ }
+ Shuffle2 {
+  fromInput1 {{0} B}
+  fromInput2 {{0} B}
+  mappings "4 rgba.red 0 0 rgba.red 0 0 rgba.red 0 0 rgba.green 0 1 rgba.red 0 0 rgba.blue 0 2 rgba.red 0 0 rgba.alpha 0 3"
+  name Shuffle8
+  xpos -252
+  ypos 392
+ }
+set N2b012400 [stack 0]
+ Switch {
+  inputs 2
+  which {{parent.custom}}
+  name custom
+  xpos -410
+  ypos 392
+ }
+set N2b012000 [stack 0]
+ Dot {
+  name Dot16
+  xpos -376
+  ypos 464
+ }
+push $N2b058800
+push $N2b058c00
+ Dot {
+  name Dot6
+  xpos -581
+  ypos -114
+ }
+set N2b011800 [stack 0]
+ Dot {
+  name Dot3
+  xpos -691
+  ypos -114
+ }
+set N2b011400 [stack 0]
+ Dot {
+  name Dot4
+  xpos -801
+  ypos -114
+ }
+ Shuffle2 {
+  fromInput1 {{0} B}
+  fromInput2 {{0} B}
+  mappings "4 rgba.red 0 0 rgba.red 0 0 black -1 -1 rgba.alpha 0 3 black -1 -1 rgba.green 0 1 black -1 -1 rgba.blue 0 2"
+  name red
+  tile_color 0xff0000ff
+  xpos -835
+  ypos 8
+ }
+ Transform {
+  translate {-5 0}
+  center {1280 536}
+  name red_transf
+  xpos -835
+  ypos 32
+  disable {{parent.disableNode}}
+ }
+ Dot {
+  name Dot9
+  xpos -801
+  ypos 145
+ }
+push 0
+push $N2b011800
+ Shuffle2 {
+  fromInput1 {{0} B}
+  fromInput2 {{0} B}
+  mappings "4 black -1 -1 rgba.red 0 0 black -1 -1 rgba.green 0 1 rgba.blue 0 2 rgba.blue 0 2 black -1 -1 rgba.alpha 0 3"
+  name blue
+  tile_color 0xffff
+  xpos -615
+  ypos 8
+ }
+ Transform {
+  translate {5 0}
+  center {1280 536}
+  name blue_transf
+  xpos -615
+  ypos 32
+  disable {{parent.disableNode}}
+ }
+ Dot {
+  name Dot10
+  xpos -581
+  ypos 145
+ }
+push $N2b011400
+ Shuffle2 {
+  fromInput1 {{0} B}
+  fromInput2 {{0} B}
+  mappings "4 rgba.green 0 1 rgba.green 0 1 black -1 -1 rgba.red 0 0 black -1 -1 rgba.blue 0 2 black -1 -1 rgba.alpha 0 3"
+  name green
+  tile_color 0xff00ff
+  xpos -725
+  ypos 8
+ }
+ Transform {
+  center {1280 536}
+  name green_transf
+  xpos -725
+  ypos 32
+  disable {{parent.disableNode}}
+ }
+ Merge2 {
+  inputs 3+1
+  name Merge1
+  xpos -725
+  ypos 142
+ }
+ Copy {
+  inputs 2
+  from0 rgba.alpha
+  to0 rgba.alpha
+  name Copy1
+  xpos -725
+  ypos 218
+ }
+ Premult {
+  name Premult1
+  xpos -725
+  ypos 257
+ }
+ Dot {
+  name Dot2
+  xpos -691
+  ypos 395
+ }
+set N2afc9c00 [stack 0]
+ Constant {
+  inputs 0
+  channels rgb
+  name Constant1
+  xpos -856
+  ypos 383
+ }
+ Reformat {
+  format "2560 1072 0 0 2560 1072 1 "
+  name Reformat1
+  xpos -856
+  ypos 455
+ }
+ Merge2 {
+  inputs 2+1
+  name Merge3
+  xpos -725
+  ypos 461
+ }
+ Dot {
+  name Dot15
+  xpos -691
+  ypos 708
+ }
+push $N2b012400
+ Dot {
+  name Dot14
+  xpos -218
+  ypos 464
+ }
+ Dot {
+  name Dot7
+  xpos -218
+  ypos 608
+ }
+push $N2b059000
+ Dot {
+  name Dot12
+  xpos -1120
+  ypos -246
+ }
+ Dot {
+  name Dot11
+  xpos -1120
+  ypos 546
+ }
+push $N2b012000
+push $N2afc9c00
+push $N2b058800
+ Merge2 {
+  inputs 2+1
+  name Merge2
+  xpos -552
+  ypos 392
+ }
+ Switch {
+  inputs 2
+  which {{parent.disableNode}}
+  name disable
+  xpos -552
+  ypos 543
+ }
+ Switch {
+  inputs 2
+  which {{parent.preview}}
+  name preview
+  xpos -552
+  ypos 605
+ }
+ Switch {
+  inputs 2
+  which {{parent.effect}}
+  name effect
+  xpos -552
+  ypos 705
+ }
+ Output {
+  name Output1
+  xpos -552
+  ypos 840
+ }
+push $N2b012000
+ Viewer {
+  frame 1
+  frame_range 100-100
+  name Viewer1
+  selected true
+  xpos -961
+  ypos 735
+ }
+end_group

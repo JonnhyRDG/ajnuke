@@ -1,0 +1,155 @@
+#! C:/Program Files/Nuke13.0v3/nuke-13.0.3.dll -nx
+version 13.0 v3
+Gizmo {
+ inputs 2
+ tile_color 0xff8516ff
+ label "\[value this.channel_rem.in1]"
+ note_font "Verdana Bold"
+ note_font_size 12
+ note_font_color 0xff
+ lifetimeStart 1001
+ lifetimeEnd 1140
+ addUserKnob {20 User}
+ addUserKnob {41 in1 l channel T channel_rem.in1}
+ addUserKnob {26 ""}
+ addUserKnob {41 white l gain T channel_grade.white}
+ addUserKnob {7 exposure R -10 10}
+ addUserKnob {26 ""}
+ addUserKnob {6 isolate +STARTLINE}
+ addUserKnob {6 disable_1 l disable -STARTLINE}
+}
+ Input {
+  inputs 0
+  name beauty
+  xpos -269
+  ypos 135
+ }
+ Dot {
+  name Dot1
+  xpos -235
+  ypos 177
+ }
+set Naab59400 [stack 0]
+ Dot {
+  name Dot2
+  xpos -412
+  ypos 177
+ }
+ Shuffle2 {
+  fromInput1 {{0} B}
+  fromInput2 {{0} B}
+  name channel_rem
+  xpos -446
+  ypos 222
+ }
+set Naab58c00 [stack 0]
+push $Naab59400
+ Merge2 {
+  inputs 2
+  operation from
+  Achannels rgb
+  name subs
+  xpos -269
+  ypos 222
+ }
+set Naab58800 [stack 0]
+ Viewer {
+  frame_range 1001-1140
+  name Viewer1
+  xpos -130
+  ypos 471
+ }
+ Input {
+  inputs 0
+  name mask
+  xpos -129
+  ypos 135
+  number 1
+ }
+ Dot {
+  name Dot9
+  xpos -95
+  ypos 310
+ }
+set Naaafbc00 [stack 0]
+ Dot {
+  name Dot10
+  xpos -95
+  ypos 345
+ }
+push $Naaafbc00
+push $Naab58c00
+ Dot {
+  name Dot8
+  xpos -412
+  ypos 258
+ }
+ EXPTool {
+  inputs 1+1
+  mode Stops
+  gang false
+  red {{parent.exposure}}
+  green {{parent.exposure}}
+  blue {{parent.exposure}}
+  name channel_exp
+  xpos -446
+  ypos 307
+  disable {{parent.disable_1}}
+ }
+ Grade {
+  inputs 1+1
+  name channel_grade
+  xpos -446
+  ypos 342
+  disable {{parent.disable_1}}
+ }
+ Dot {
+  name Dot3
+  xpos -412
+  ypos 383
+ }
+set Naaafa800 [stack 0]
+ Dot {
+  name Dot4
+  xpos -412
+  ypos 430
+ }
+set Naaafa400 [stack 0]
+ Dot {
+  name Dot5
+  xpos -412
+  ypos 474
+ }
+push $Naaafa400
+push $Naaafa800
+push $Naab58800
+ Merge2 {
+  inputs 2
+  operation plus
+  Achannels rgb
+  name add
+  xpos -269
+  ypos 380
+ }
+ Shuffle2 {
+  inputs 2
+  fromInput1 {{1} B A}
+  out1 {{{parent.channel_rem.in1}}}
+  fromInput2 {{0} B A}
+  name channel_copy
+  xpos -269
+  ypos 427
+ }
+ Switch {
+  inputs 2
+  which {{parent.isolate}}
+  name isolate
+  xpos -269
+  ypos 471
+ }
+ Output {
+  name Output1
+  xpos -269
+  ypos 587
+ }
+end_group

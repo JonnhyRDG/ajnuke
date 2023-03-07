@@ -1,0 +1,1190 @@
+#! C:/Program Files/Nuke13.0v3/nuke-13.0.3.dll -nx
+version 13.0 v3
+Gizmo {
+ inputs 2
+ tile_color 0xff5232ff
+ addUserKnob {20 User}
+ addUserKnob {6 switch +STARTLINE}
+ addUserKnob {41 translate T Text3.translate}
+}
+ Input {
+  inputs 0
+  name slower
+  xpos 70
+  ypos -524
+ }
+ Group {
+  name render_stats1
+  tile_color 0xa631ffff
+  xpos 70
+  ypos -500
+  addUserKnob {20 User}
+  addUserKnob {20 FontColor l "Font Color" n 1}
+  addUserKnob {19 font_color l "Font Color" t "Change font color according to BG for optimal viewing."}
+  font_color {1 1 1 1}
+  addUserKnob {6 font_color_panelDropped l "panel dropped state" -STARTLINE +HIDDEN}
+  font_color_panelDropped true
+  addUserKnob {6 font_color_panelDropped_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 font_color_panelDropped_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 font_color_panelDropped_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 font_color_panelDropped_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 font_color_panelDropped_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 font_color_panelDropped_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 font_color_panelDropped_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 font_color_panelDropped_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 font_color_panelDropped_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 font_color_panelDropped_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 font_color_panelDropped_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 font_color_panelDropped_1_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 font_color_panelDropped_1_1_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 font_color_panelDropped_1_1_1_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 font_color_panelDropped_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 font_color_panelDropped_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 font_color_panelDropped_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 font_color_panelDropped_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 font_color_panelDropped_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 font_color_panelDropped_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 font_color_panelDropped_2 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 drop_shd l "Drop Shadow" t "Enable/Disable the black edge on the fonts" +STARTLINE}
+  drop_shd true
+  addUserKnob {7 shd_width l "Drop Shadow Width" t "Font edge width in pixels, default is 3" R 1 10}
+  shd_width 2
+  addUserKnob {20 endGroup_2 l endGroup n -1}
+  addUserKnob {20 Transform n 1}
+  addUserKnob {41 scale T Transform1.scale}
+  addUserKnob {41 translate T Transform1.translate}
+  addUserKnob {41 disable_7 l "Disable Size Scale" t "If you're comp is bigger than 2048, this node will scale accordingly. Check this option if you DON'T want it to do that." T Transform9.disable}
+  addUserKnob {20 endGroup_1 l endGroup n -1}
+  addUserKnob {20 DisableData l "Disable Data" n 1}
+  addUserKnob {41 disable_1 l "Render time" T renderTimeText.disable}
+  addUserKnob {41 disable_2 l "Render Node" -STARTLINE T RenderNodeText.disable}
+  addUserKnob {41 disable_3 l "Render Layer" -STARTLINE T renderLayer.disable}
+  addUserKnob {41 disable_4 l "Mem Peak" T memPeakText.disable}
+  addUserKnob {41 disable_5 l "Depth Stats" -STARTLINE T depthstatsText.disable}
+  addUserKnob {41 disable_6 l Sampling -STARTLINE T SamplingStatsText.disable}
+  addUserKnob {41 disable_8 l Resolution -STARTLINE T Res.disable}
+  addUserKnob {3 lname l "Layer/Asset Name" t "Pick the degree in which your layer name is found, divided by the separator /"}
+  lname 6
+  addUserKnob {20 endGroup n -1}
+ }
+  Input {
+   inputs 0
+   name Input1
+   xpos -101
+   ypos 150
+  }
+set Ncdc74800 [stack 0]
+  Remove {
+   channels rgba
+   name Remove1
+   xpos 62
+   ypos 150
+  }
+  Shuffle {
+   alpha black
+   name Shuffle1
+   xpos 62
+   ypos 190
+  }
+set Ncdc0bc00 [stack 0]
+  Dot {
+   name Dot2
+   xpos 389
+   ypos 194
+  }
+  Dot {
+   name Dot3
+   xpos 389
+   ypos 230
+  }
+set Ncdc0b400 [stack 0]
+  Dot {
+   name Dot4
+   xpos 389
+   ypos 293
+  }
+set Ncdc0b000 [stack 0]
+  Dot {
+   name Dot5
+   xpos 389
+   ypos 354
+  }
+set Ncdc0ac00 [stack 0]
+  Dot {
+   name Dot6
+   xpos 389
+   ypos 408
+  }
+set Ncdc0a800 [stack 0]
+  Dot {
+   name Dot7
+   xpos 389
+   ypos 462
+  }
+set Ncdc0a400 [stack 0]
+  Dot {
+   name Dot8
+   xpos 389
+   ypos 532
+  }
+set Ncdc0a000 [stack 0]
+  Dot {
+   name Dot9
+   xpos 389
+   ypos 595
+  }
+  Text2 {
+   font_size_toolbar 100
+   font_width_toolbar 100
+   font_height_toolbar 100
+   message "Layer:\n\[lindex \[split \[metadata input/filename] \"/\"] \[value parent.lname]]"
+   old_message {{76 97 121 101 114 58 10}
+     }
+   old_expression_markers {{7 6}
+     }
+   box {56.75 29.75 758 156}
+   transforms {{0 2}
+     }
+   cursor_position 6
+   font {{ Arial : Regular : arial.ttf : 0 }}
+   global_font_scale 0.55
+   translate {-333 -184}
+   center {1024 512}
+   cursor_initialised true
+   autofit_bbox false
+   initial_cursor_position {{1029.5 781.5}
+     }
+   group_animations {{0} imported: 0 selected: items: "root transform/"}
+   animation_layers {{1 11 1024 512 0 0 1 1 0 0 0 0}
+     }
+   color {1 1 1 1}
+   enable_shadows true
+   shadow_opacity 1
+   shadow_angle 0
+   shadow_distance 0
+   shadow_size 4
+   name renderLayer
+   xpos 59
+   ypos 590
+  }
+  Transform {
+   center {2048 858}
+   name Transform8
+   xpos 59
+   ypos 616
+  }
+push $Ncdc0a000
+  Text2 {
+   font_size_toolbar 70
+   font_width_toolbar 100
+   font_height_toolbar 100
+   message "SAMPLING:\nAA - \[metadata exr/arnold/AA_samples]\nspec - \[metadata exr/arnold/specular_samples]\ndiff - \[metadata exr/arnold/diffuse_samples]\ntrans - \[metadata exr/arnold/transmission_samples]\nsss - \[metadata exr/arnold/sss_samples]"
+   old_message {{83 65 77 80 76 73 78 71 58 10 65 65 32 45 32 10 115 112 101 99 32 45 32 10 100 105 102 102 32 45 32 10 116 114 97 110 115 32 45 32 10 115 115 115 32 45 32}
+     }
+   old_expression_markers {{15 14 23 22 31 30 40 39 47 46}
+     }
+   box {1676 450.5 1982 759.5}
+   transforms {{0 2}
+     }
+   font_size_values {{0 70 1 70 2 70 3 70 4 70 5 70 6 70 7 70 8 70 9 70 10 70 11 70 12 70 13 70 14 70 15 70 16 70 17 70 18 70 19 70 20 70 21 70 22 70 23 70 24 70 25 70 26 70 27 70 28 70 29 70 30 70 31 70 32 70 33 70 34 70 35 70 36 70 37 70 38 70 39 70 40 70 41 70 42 70 43 70 44 70 45 70 46 70 0 70 9 70 10 70 11 70 12 70 13 70 14 70 15 70 16 70 17 70 18 70 19 70 20 70 21 70 22 70 23 70 24 70 25 70 26 70 27 70 28 70 29 70 30 70 31 70 32 70 33 70 34 70 35 70 36 70 37 70 38 70 39 70 40 70 41 70 42 70 43 70 44 70 45 70 46 70}
+     }
+   cursor_position 10
+   font {{ Arial : Regular : arial.ttf : 0 }}
+   global_font_scale 0.55
+   font_size 70
+   translate {-329 -179}
+   center {1024 512}
+   cursor_initialised true
+   autofit_bbox false
+   initial_cursor_position {{1491 354}
+     }
+   group_animations {{0} imported: 0 selected: items: "root transform/"}
+   animation_layers {{1 11 1024 512 0 0 1 1 0 0 0 0}
+     }
+   color {{parent.font_color.r} {parent.font_color.g} {parent.font_color.b} {parent.font_color.a}}
+   enable_shadows {{drop_shd}}
+   shadow_opacity 1
+   shadow_angle 0
+   shadow_distance 0
+   shadow_size {{parent.shd_width}}
+   name SamplingStatsText
+   xpos 61
+   ypos 528
+  }
+  Transform {
+   center {2048 858}
+   name Transform7
+   xpos 61
+   ypos 553
+  }
+push $Ncdc0a400
+  Text2 {
+   font_size_toolbar 100
+   font_width_toolbar 100
+   font_height_toolbar 100
+   message "RESOLUTION:\n\[metadata input/width]x\[metadata input/height]"
+   old_message {{82 69 83 79 76 85 84 73 79 78 58 10 49 48 50 52 120 52 50 57}
+     }
+   old_expression_markers {{12 15 17 19}
+     }
+   box {1372.375 648.75 1655.625 843.25}
+   xjustify center
+   transforms {{0 2}
+     }
+   cursor_position 11
+   font {{ Arial : Regular : arial.ttf : 0 }}
+   global_font_scale 0.35
+   translate {-333 -184}
+   center {1024 512}
+   cursor_initialised true
+   autofit_bbox false
+   initial_cursor_position {{1029.5 781.5}
+     }
+   group_animations {{0} imported: 0 selected: items: "root transform/"}
+   animation_layers {{1 11 1024 512 0 0 1 1 0 0 0 0}
+     }
+   color {{parent.font_color.r} {parent.font_color.g} {parent.font_color.b} {parent.font_color.a}}
+   enable_shadows {{drop_shd}}
+   shadow_opacity 1
+   shadow_angle 0
+   shadow_distance 0
+   shadow_size {{parent.shd_width}}
+   name Res
+   xpos 63
+   ypos 458
+   disable true
+  }
+  Transform {
+   translate {-100 -8}
+   center {1024 429}
+   name Transform2
+   xpos 63
+   ypos 497
+   disable true
+  }
+push $Ncdc0a800
+  Text2 {
+   font_size_toolbar 70
+   font_width_toolbar 100
+   font_height_toolbar 100
+   message "DEPTH:\nmax - \[metadata exr/arnold/total_depth]\nspecular - \[metadata exr/arnold/specular_depth]\ndiffuse - \[metadata exr/arnold/diffuse_depth]\ntransmission - \[metadata exr/arnold/transmission_depth]"
+   old_message {{68 69 80 84 72 58 10 109 97 120 32 45 32 10 115 112 101 99 117 108 97 114 32 45 32 10 100 105 102 102 117 115 101 32 45 32 10 116 114 97 110 115 109 105 115 115 105 111 110 32 45 32}
+     }
+   old_expression_markers {{13 12 25 24 36 35 52 51}
+     }
+   box {1677.5 183.5 1982.5 418}
+   transforms {{0 2}
+     }
+   font_size_values {{0 70 1 70 2 70 3 70 4 70 5 70 6 70 7 70 8 70 9 70 10 70 11 70 12 70 13 70 14 70 15 70 16 70 17 70 18 70 19 70 20 70 21 70 22 70 23 70 24 70 25 70 26 70 27 70 28 70 29 70 30 70 31 70 32 70 33 70 34 70 35 70 36 70 37 70 38 70 39 70 40 70 41 70 42 70 43 70 44 70 45 70 46 70 47 70 48 70 49 70 50 70 51 70 7 70 8 70 9 70 10 70 11 70 12 70 13 70 14 70 15 70 16 70 17 70 22 70 23 70 24 70 25 70 26 70 27 70 28 70 29 70 33 70 34 70 35 70 36 70 37 70 38 70 39 70 40 70 41 70 42 70 49 70 50 70 51 70}
+     }
+   cursor_position 153
+   font {{ Arial : Regular : arial.ttf : 0 }}
+   global_font_scale 0.55
+   font_size 70
+   translate {-344 -175}
+   center {1024 512}
+   cursor_initialised true
+   autofit_bbox false
+   initial_cursor_position {{1769 315.75}
+     }
+   group_animations {{0} imported: 0 selected: items: "root transform/"}
+   animation_layers {{1 11 1024 512 0 0 1 1 0 0 0 0}
+     }
+   color {{parent.font_color.r} {parent.font_color.g} {parent.font_color.b} {parent.font_color.a}}
+   enable_shadows {{drop_shd}}
+   shadow_opacity 1
+   shadow_angle 0
+   shadow_distance 0
+   shadow_size {{parent.shd_width}}
+   name depthstatsText
+   xpos 62
+   ypos 403
+  }
+set Ncdb8fc00 [stack 0]
+  Transform {
+   center {2048 858}
+   name Transform6
+   xpos 62
+   ypos 429
+  }
+push $Ncdc0ac00
+  Text2 {
+   font_size_toolbar 100
+   font_width_toolbar 100
+   font_height_toolbar 100
+   message "Mem peak\n\[format %0.2f \[expr \[metadata exr/arnold/stats/memory/peak]/1000]] GB\n"
+   old_message {{77 101 109 32 112 101 97 107 10 91 102 111 114 109 97 116 32 37 48 46 50 102 32 91 101 120 112 114 32 47 49 48 48 48 93 93 32 71 66 10}
+     }
+   old_expression_markers {{29 28}
+     }
+   box {1672.5 24.25 1985.5 155.75}
+   xjustify center
+   transforms {{0 2}
+     }
+   cursor_position 75
+   font {{ Arial : Regular : arial.ttf : 0 }}
+   global_font_scale 0.55
+   translate {-325 -167}
+   center {1024 512}
+   cursor_initialised true
+   autofit_bbox false
+   initial_cursor_position {{1487 114.5}
+     }
+   group_animations {{0} imported: 0 selected: items: "root transform/"}
+   animation_layers {{1 11 1024 512 0 0 1 1 0 0 0 0}
+     }
+   color {{parent.font_color.r} {parent.font_color.g} {parent.font_color.b} {parent.font_color.a}}
+   enable_shadows {{drop_shd}}
+   shadow_opacity 1
+   shadow_angle 0
+   shadow_distance 0
+   shadow_size {{parent.shd_width}}
+   name memPeakText
+   xpos 61
+   ypos 350
+  }
+  Transform {
+   center {2048 858}
+   name Transform5
+   xpos 61
+   ypos 375
+  }
+push $Ncdc0b000
+  Text2 {
+   font_size_toolbar 100
+   font_width_toolbar 100
+   font_height_toolbar 100
+   message "Node:\[metadata exr/arnold/host/name]\n\[metadata exr/arnold/host/hw]\n"
+   old_message {{78 111 100 101 58 10 10}
+     }
+   old_expression_markers {{5 4 6 5}
+     }
+   box {15.5 753.5 1024.5 838.5}
+   transforms {{0 2}
+     }
+   cursor_position 5
+   font {{ Arial : Regular : arial.ttf : 0 }}
+   global_font_scale 0.27
+   translate {-325 -110}
+   center {1024 512}
+   cursor_initialised true
+   autofit_bbox false
+   initial_cursor_position {{11.5 851.5}
+     }
+   group_animations {{0} imported: 0 selected: items: "root transform/"}
+   animation_layers {{1 11 1024 512 0 0 1 1 0 0 0 0}
+     }
+   color {{parent.font_color.r} {parent.font_color.g} {parent.font_color.b} {parent.font_color.a}}
+   enable_shadows {{drop_shd}}
+   shadow_opacity 1
+   shadow_angle 0
+   shadow_distance 0
+   shadow_size {{parent.shd_width}}
+   name RenderNodeText
+   xpos 62
+   ypos 290
+  }
+  Transform {
+   center {2048 858}
+   name Transform4
+   xpos 62
+   ypos 314
+  }
+push $Ncdc0b400
+  Text2 {
+   font_size_toolbar 100
+   font_width_toolbar 100
+   font_height_toolbar 100
+   message "Render Time\n \[format %02d:%02d:%02d \[expr int(\[metadata exr/arnold/stats/time/render]/3600)] \[expr int(fmod(\[metadata exr/arnold/stats/time/render]/60,60))] \[expr int(fmod(\[metadata exr/arnold/stats/time/render],60))]]\n\n"
+   old_message {{82 101 110 100 101 114 32 84 105 109 101 10 32 91 102 111 114 109 97 116 32 37 48 50 100 58 37 48 50 100 58 37 48 50 100 32 91 101 120 112 114 32 105 110 116 40 47 51 54 48 48 41 93 32 91 101 120 112 114 32 105 110 116 40 102 109 111 100 40 47 54 48 44 54 48 41 41 93 32 91 101 120 112 114 32 105 110 116 40 102 109 111 100 40 44 54 48 41 41 93 93 10 10}
+     }
+   old_expression_markers {{46 45 69 68 94 93}
+     }
+   box {1311.5 29 1636.5 151}
+   xjustify center
+   transforms {{0 2}
+     }
+   kern_values {{12 0}
+     }
+   baseline_values {{11 2}
+     }
+   cursor_position 9
+   font {{ Arial : Regular : arial.ttf : 0 }}
+   global_font_scale 0.55
+   translate {-324 -109}
+   center {1024 512}
+   cursor_initialised true
+   autofit_bbox false
+   initial_cursor_position {{1760.5 123.5}
+     }
+   group_animations {{0} imported: 0 selected: items: "root transform/"}
+   animation_layers {{1 11 1024 512 0 0 1 1 0 0 0 0}
+     }
+   color {{parent.font_color.r} {parent.font_color.g} {parent.font_color.b} {parent.font_color.a}}
+   enable_shadows {{parent.drop_shd}}
+   shadow_color_panelDropped true
+   shadow_opacity 1
+   shadow_angle 0
+   shadow_distance 0
+   shadow_size {{parent.shd_width}}
+   name renderTimeText
+   xpos 62
+   ypos 226
+  }
+  Transform {
+   center {131 805}
+   name Transform3
+   xpos 62
+   ypos 251
+  }
+push $Ncdc0bc00
+  Dot {
+   name Dot11
+   xpos -8
+   ypos 194
+  }
+  Merge2 {
+   inputs 2
+   name Merge2
+   xpos -42
+   ypos 251
+  }
+  Merge2 {
+   inputs 2
+   name Merge3
+   xpos -42
+   ypos 314
+  }
+  Merge2 {
+   inputs 2
+   name Merge4
+   xpos -42
+   ypos 375
+  }
+  Merge2 {
+   inputs 2
+   name Merge5
+   xpos -42
+   ypos 429
+  }
+  Merge2 {
+   inputs 2
+   name Merge6
+   xpos -42
+   ypos 497
+  }
+  Merge2 {
+   inputs 2
+   name Merge7
+   xpos -42
+   ypos 553
+  }
+  Merge2 {
+   inputs 2
+   name Merge8
+   xpos -42
+   ypos 616
+  }
+  Transform {
+   scale {{"\[metadata input/width]/4096 * 2"}}
+   name Transform9
+   xpos -42
+   ypos 650
+   disable true
+  }
+  Transform {
+   center {1024 429}
+   name Transform1
+   xpos -42
+   ypos 684
+   disable true
+  }
+  Dot {
+   name Dot1
+   xpos -8
+   ypos 747
+  }
+push $Ncdc74800
+  Merge2 {
+   inputs 2
+   name Merge1
+   xpos -101
+   ypos 744
+  }
+  Output {
+   name Output1
+   xpos -101
+   ypos 788
+  }
+push $Ncdb8fc00
+  Viewer {
+   frame_range 101-101
+   name Viewer1
+   xpos -101
+   ypos 853
+  }
+ end_group
+ Dot {
+  name Dot6
+  xpos 104
+  ypos -301
+ }
+set Ncde9ec00 [stack 0]
+ Dot {
+  name Dot7
+  xpos 301
+  ypos -301
+ }
+ Expression {
+  channel0 rgba
+  expr0 "\[metadata exr/arnold/stats/memory/peak]"
+  name Expression1
+  xpos 267
+  ypos -243
+ }
+ Input {
+  inputs 0
+  name beauty
+  xpos -121
+  ypos -525
+  number 1
+ }
+ Group {
+  name render_stats
+  tile_color 0xa631ffff
+  selected true
+  xpos -121
+  ypos -501
+  addUserKnob {20 User}
+  addUserKnob {20 FontColor l "Font Color" n 1}
+  addUserKnob {19 font_color l "Font Color" t "Change font color according to BG for optimal viewing."}
+  font_color {1 1 1 1}
+  addUserKnob {6 font_color_panelDropped l "panel dropped state" -STARTLINE +HIDDEN}
+  font_color_panelDropped true
+  addUserKnob {6 font_color_panelDropped_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 font_color_panelDropped_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 font_color_panelDropped_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 font_color_panelDropped_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 font_color_panelDropped_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 font_color_panelDropped_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 font_color_panelDropped_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 font_color_panelDropped_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 font_color_panelDropped_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 font_color_panelDropped_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 font_color_panelDropped_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 font_color_panelDropped_1_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 font_color_panelDropped_1_1_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 font_color_panelDropped_1_1_1_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 font_color_panelDropped_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 font_color_panelDropped_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 font_color_panelDropped_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 font_color_panelDropped_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 font_color_panelDropped_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 font_color_panelDropped_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 font_color_panelDropped_2 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 drop_shd l "Drop Shadow" t "Enable/Disable the black edge on the fonts" +STARTLINE}
+  drop_shd true
+  addUserKnob {7 shd_width l "Drop Shadow Width" t "Font edge width in pixels, default is 3" R 1 10}
+  shd_width 2
+  addUserKnob {20 endGroup_2 l endGroup n -1}
+  addUserKnob {20 Transform n 1}
+  addUserKnob {41 scale T Transform1.scale}
+  addUserKnob {41 translate T Transform1.translate}
+  addUserKnob {41 disable_7 l "Disable Size Scale" t "If you're comp is bigger than 2048, this node will scale accordingly. Check this option if you DON'T want it to do that." T Transform9.disable}
+  addUserKnob {20 endGroup_1 l endGroup n -1}
+  addUserKnob {20 DisableData l "Disable Data" n 1}
+  addUserKnob {41 disable_1 l "Render time" T renderTimeText.disable}
+  addUserKnob {41 disable_2 l "Render Node" -STARTLINE T RenderNodeText.disable}
+  addUserKnob {41 disable_3 l "Render Layer" -STARTLINE T renderLayer.disable}
+  addUserKnob {41 disable_4 l "Mem Peak" T memPeakText.disable}
+  addUserKnob {41 disable_5 l "Depth Stats" -STARTLINE T depthstatsText.disable}
+  addUserKnob {41 disable_6 l Sampling -STARTLINE T SamplingStatsText.disable}
+  addUserKnob {41 disable_8 l Resolution -STARTLINE T Res.disable}
+  addUserKnob {3 lname l "Layer/Asset Name" t "Pick the degree in which your layer name is found, divided by the separator /"}
+  lname 6
+  addUserKnob {20 endGroup n -1}
+ }
+  Input {
+   inputs 0
+   name Input1
+   xpos -101
+   ypos 150
+  }
+set Ncde9dc00 [stack 0]
+  Remove {
+   channels rgba
+   name Remove1
+   xpos 62
+   ypos 150
+  }
+  Shuffle {
+   alpha black
+   name Shuffle1
+   xpos 62
+   ypos 190
+  }
+set Ncde9d400 [stack 0]
+  Dot {
+   name Dot2
+   xpos 389
+   ypos 194
+  }
+  Dot {
+   name Dot3
+   xpos 389
+   ypos 230
+  }
+set Ncde9cc00 [stack 0]
+  Dot {
+   name Dot4
+   xpos 389
+   ypos 293
+  }
+set Ncde9c800 [stack 0]
+  Dot {
+   name Dot5
+   xpos 389
+   ypos 354
+  }
+set Ncde9c400 [stack 0]
+  Dot {
+   name Dot6
+   xpos 389
+   ypos 408
+  }
+set Ncde4bc00 [stack 0]
+  Dot {
+   name Dot7
+   xpos 389
+   ypos 462
+  }
+set Ncde4b800 [stack 0]
+  Dot {
+   name Dot8
+   xpos 389
+   ypos 532
+  }
+set Ncde4b400 [stack 0]
+  Dot {
+   name Dot9
+   xpos 389
+   ypos 595
+  }
+  Text2 {
+   font_size_toolbar 100
+   font_width_toolbar 100
+   font_height_toolbar 100
+   message "Layer:\n\[lindex \[split \[metadata input/filename] \"/\"] \[value parent.lname]]"
+   old_message {{76 97 121 101 114 58 10}
+     }
+   old_expression_markers {{7 6}
+     }
+   box {56.75 29.75 758 156}
+   transforms {{0 2}
+     }
+   cursor_position 6
+   font {{ Arial : Regular : arial.ttf : 0 }}
+   global_font_scale 0.55
+   translate {-333 -184}
+   center {1024 512}
+   cursor_initialised true
+   autofit_bbox false
+   initial_cursor_position {{1029.5 781.5}
+     }
+   group_animations {{0} imported: 0 selected: items: "root transform/"}
+   animation_layers {{1 11 1024 512 0 0 1 1 0 0 0 0}
+     }
+   color {1 1 1 1}
+   enable_shadows true
+   shadow_opacity 1
+   shadow_angle 0
+   shadow_distance 0
+   shadow_size 4
+   name renderLayer
+   xpos 59
+   ypos 590
+  }
+  Transform {
+   center {2048 858}
+   name Transform8
+   xpos 59
+   ypos 616
+  }
+push $Ncde4b400
+  Text2 {
+   font_size_toolbar 70
+   font_width_toolbar 100
+   font_height_toolbar 100
+   message "SAMPLING:\nAA - \[metadata exr/arnold/AA_samples]\nspec - \[metadata exr/arnold/specular_samples]\ndiff - \[metadata exr/arnold/diffuse_samples]\ntrans - \[metadata exr/arnold/transmission_samples]\nsss - \[metadata exr/arnold/sss_samples]"
+   old_message {{83 65 77 80 76 73 78 71 58 10 65 65 32 45 32 10 115 112 101 99 32 45 32 10 100 105 102 102 32 45 32 10 116 114 97 110 115 32 45 32 10 115 115 115 32 45 32}
+     }
+   old_expression_markers {{15 14 23 22 31 30 40 39 47 46}
+     }
+   box {1676 450.5 1982 759.5}
+   transforms {{0 2}
+     }
+   font_size_values {{0 70 1 70 2 70 3 70 4 70 5 70 6 70 7 70 8 70 9 70 10 70 11 70 12 70 13 70 14 70 15 70 16 70 17 70 18 70 19 70 20 70 21 70 22 70 23 70 24 70 25 70 26 70 27 70 28 70 29 70 30 70 31 70 32 70 33 70 34 70 35 70 36 70 37 70 38 70 39 70 40 70 41 70 42 70 43 70 44 70 45 70 46 70 0 70 9 70 10 70 11 70 12 70 13 70 14 70 15 70 16 70 17 70 18 70 19 70 20 70 21 70 22 70 23 70 24 70 25 70 26 70 27 70 28 70 29 70 30 70 31 70 32 70 33 70 34 70 35 70 36 70 37 70 38 70 39 70 40 70 41 70 42 70 43 70 44 70 45 70 46 70}
+     }
+   cursor_position 10
+   font {{ Arial : Regular : arial.ttf : 0 }}
+   global_font_scale 0.55
+   font_size 70
+   translate {-329 -179}
+   center {1024 512}
+   cursor_initialised true
+   autofit_bbox false
+   initial_cursor_position {{1491 354}
+     }
+   group_animations {{0} imported: 0 selected: items: "root transform/"}
+   animation_layers {{1 11 1024 512 0 0 1 1 0 0 0 0}
+     }
+   color {{parent.font_color.r} {parent.font_color.g} {parent.font_color.b} {parent.font_color.a}}
+   enable_shadows {{drop_shd}}
+   shadow_opacity 1
+   shadow_angle 0
+   shadow_distance 0
+   shadow_size {{parent.shd_width}}
+   name SamplingStatsText
+   xpos 61
+   ypos 528
+  }
+  Transform {
+   center {2048 858}
+   name Transform7
+   xpos 61
+   ypos 553
+  }
+push $Ncde4b800
+  Text2 {
+   font_size_toolbar 100
+   font_width_toolbar 100
+   font_height_toolbar 100
+   message "RESOLUTION:\n\[metadata input/width]x\[metadata input/height]"
+   old_message {{82 69 83 79 76 85 84 73 79 78 58 10 49 48 50 52 120 52 50 57}
+     }
+   old_expression_markers {{12 15 17 19}
+     }
+   box {1372.375 648.75 1655.625 843.25}
+   xjustify center
+   transforms {{0 2}
+     }
+   cursor_position 11
+   font {{ Arial : Regular : arial.ttf : 0 }}
+   global_font_scale 0.35
+   translate {-333 -184}
+   center {1024 512}
+   cursor_initialised true
+   autofit_bbox false
+   initial_cursor_position {{1029.5 781.5}
+     }
+   group_animations {{0} imported: 0 selected: items: "root transform/"}
+   animation_layers {{1 11 1024 512 0 0 1 1 0 0 0 0}
+     }
+   color {{parent.font_color.r} {parent.font_color.g} {parent.font_color.b} {parent.font_color.a}}
+   enable_shadows {{drop_shd}}
+   shadow_opacity 1
+   shadow_angle 0
+   shadow_distance 0
+   shadow_size {{parent.shd_width}}
+   name Res
+   xpos 63
+   ypos 458
+   disable true
+  }
+  Transform {
+   translate {-100 -8}
+   center {1024 429}
+   name Transform2
+   xpos 63
+   ypos 497
+   disable true
+  }
+push $Ncde4bc00
+  Text2 {
+   font_size_toolbar 70
+   font_width_toolbar 100
+   font_height_toolbar 100
+   message "DEPTH:\nmax - \[metadata exr/arnold/total_depth]\nspecular - \[metadata exr/arnold/specular_depth]\ndiffuse - \[metadata exr/arnold/diffuse_depth]\ntransmission - \[metadata exr/arnold/transmission_depth]"
+   old_message {{68 69 80 84 72 58 10 109 97 120 32 45 32 10 115 112 101 99 117 108 97 114 32 45 32 10 100 105 102 102 117 115 101 32 45 32 10 116 114 97 110 115 109 105 115 115 105 111 110 32 45 32}
+     }
+   old_expression_markers {{13 12 25 24 36 35 52 51}
+     }
+   box {1677.5 183.5 1982.5 418}
+   transforms {{0 2}
+     }
+   font_size_values {{0 70 1 70 2 70 3 70 4 70 5 70 6 70 7 70 8 70 9 70 10 70 11 70 12 70 13 70 14 70 15 70 16 70 17 70 18 70 19 70 20 70 21 70 22 70 23 70 24 70 25 70 26 70 27 70 28 70 29 70 30 70 31 70 32 70 33 70 34 70 35 70 36 70 37 70 38 70 39 70 40 70 41 70 42 70 43 70 44 70 45 70 46 70 47 70 48 70 49 70 50 70 51 70 7 70 8 70 9 70 10 70 11 70 12 70 13 70 14 70 15 70 16 70 17 70 22 70 23 70 24 70 25 70 26 70 27 70 28 70 29 70 33 70 34 70 35 70 36 70 37 70 38 70 39 70 40 70 41 70 42 70 49 70 50 70 51 70}
+     }
+   cursor_position 153
+   font {{ Arial : Regular : arial.ttf : 0 }}
+   global_font_scale 0.55
+   font_size 70
+   translate {-344 -175}
+   center {1024 512}
+   cursor_initialised true
+   autofit_bbox false
+   initial_cursor_position {{1769 315.75}
+     }
+   group_animations {{0} imported: 0 selected: items: "root transform/"}
+   animation_layers {{1 11 1024 512 0 0 1 1 0 0 0 0}
+     }
+   color {{parent.font_color.r} {parent.font_color.g} {parent.font_color.b} {parent.font_color.a}}
+   enable_shadows {{drop_shd}}
+   shadow_opacity 1
+   shadow_angle 0
+   shadow_distance 0
+   shadow_size {{parent.shd_width}}
+   name depthstatsText
+   xpos 62
+   ypos 403
+  }
+set Ncde49400 [stack 0]
+  Transform {
+   center {2048 858}
+   name Transform6
+   xpos 62
+   ypos 429
+  }
+push $Ncde9c400
+  Text2 {
+   font_size_toolbar 100
+   font_width_toolbar 100
+   font_height_toolbar 100
+   message "Mem peak\n\[format %0.2f \[expr \[metadata exr/arnold/stats/memory/peak]/1000]] GB\n"
+   old_message {{77 101 109 32 112 101 97 107 10 91 102 111 114 109 97 116 32 37 48 46 50 102 32 91 101 120 112 114 32 47 49 48 48 48 93 93 32 71 66 10}
+     }
+   old_expression_markers {{29 28}
+     }
+   box {1672.5 24.25 1985.5 155.75}
+   xjustify center
+   transforms {{0 2}
+     }
+   cursor_position 75
+   font {{ Arial : Regular : arial.ttf : 0 }}
+   global_font_scale 0.55
+   translate {-325 -167}
+   center {1024 512}
+   cursor_initialised true
+   autofit_bbox false
+   initial_cursor_position {{1487 114.5}
+     }
+   group_animations {{0} imported: 0 selected: items: "root transform/"}
+   animation_layers {{1 11 1024 512 0 0 1 1 0 0 0 0}
+     }
+   color {{parent.font_color.r} {parent.font_color.g} {parent.font_color.b} {parent.font_color.a}}
+   enable_shadows {{drop_shd}}
+   shadow_opacity 1
+   shadow_angle 0
+   shadow_distance 0
+   shadow_size {{parent.shd_width}}
+   name memPeakText
+   xpos 61
+   ypos 350
+  }
+  Transform {
+   center {2048 858}
+   name Transform5
+   xpos 61
+   ypos 375
+  }
+push $Ncde9c800
+  Text2 {
+   font_size_toolbar 100
+   font_width_toolbar 100
+   font_height_toolbar 100
+   message "Node:\[metadata exr/arnold/host/name]\n\[metadata exr/arnold/host/hw]\n"
+   old_message {{78 111 100 101 58 10 10}
+     }
+   old_expression_markers {{5 4 6 5}
+     }
+   box {15.5 753.5 1024.5 838.5}
+   transforms {{0 2}
+     }
+   cursor_position 5
+   font {{ Arial : Regular : arial.ttf : 0 }}
+   global_font_scale 0.27
+   translate {-325 -110}
+   center {1024 512}
+   cursor_initialised true
+   autofit_bbox false
+   initial_cursor_position {{11.5 851.5}
+     }
+   group_animations {{0} imported: 0 selected: items: "root transform/"}
+   animation_layers {{1 11 1024 512 0 0 1 1 0 0 0 0}
+     }
+   color {{parent.font_color.r} {parent.font_color.g} {parent.font_color.b} {parent.font_color.a}}
+   enable_shadows {{drop_shd}}
+   shadow_opacity 1
+   shadow_angle 0
+   shadow_distance 0
+   shadow_size {{parent.shd_width}}
+   name RenderNodeText
+   xpos 62
+   ypos 290
+  }
+  Transform {
+   center {2048 858}
+   name Transform4
+   xpos 62
+   ypos 314
+  }
+push $Ncde9cc00
+  Text2 {
+   font_size_toolbar 100
+   font_width_toolbar 100
+   font_height_toolbar 100
+   message "Render Time\n \[format %02d:%02d:%02d \[expr int(\[metadata exr/arnold/stats/time/render]/3600)] \[expr int(fmod(\[metadata exr/arnold/stats/time/render]/60,60))] \[expr int(fmod(\[metadata exr/arnold/stats/time/render],60))]]\n\n"
+   old_message {{82 101 110 100 101 114 32 84 105 109 101 10 32 91 102 111 114 109 97 116 32 37 48 50 100 58 37 48 50 100 58 37 48 50 100 32 91 101 120 112 114 32 105 110 116 40 47 51 54 48 48 41 93 32 91 101 120 112 114 32 105 110 116 40 102 109 111 100 40 47 54 48 44 54 48 41 41 93 32 91 101 120 112 114 32 105 110 116 40 102 109 111 100 40 44 54 48 41 41 93 93 10 10}
+     }
+   old_expression_markers {{46 45 69 68 94 93}
+     }
+   box {1311.5 29 1636.5 151}
+   xjustify center
+   transforms {{0 2}
+     }
+   kern_values {{12 0}
+     }
+   baseline_values {{11 2}
+     }
+   cursor_position 9
+   font {{ Arial : Regular : arial.ttf : 0 }}
+   global_font_scale 0.55
+   translate {-324 -109}
+   center {1024 512}
+   cursor_initialised true
+   autofit_bbox false
+   initial_cursor_position {{1760.5 123.5}
+     }
+   group_animations {{0} imported: 0 selected: items: "root transform/"}
+   animation_layers {{1 11 1024 512 0 0 1 1 0 0 0 0}
+     }
+   color {{parent.font_color.r} {parent.font_color.g} {parent.font_color.b} {parent.font_color.a}}
+   enable_shadows {{parent.drop_shd}}
+   shadow_color_panelDropped true
+   shadow_opacity 1
+   shadow_angle 0
+   shadow_distance 0
+   shadow_size {{parent.shd_width}}
+   name renderTimeText
+   xpos 62
+   ypos 226
+  }
+  Transform {
+   center {131 805}
+   name Transform3
+   xpos 62
+   ypos 251
+  }
+push $Ncde9d400
+  Dot {
+   name Dot11
+   xpos -8
+   ypos 194
+  }
+  Merge2 {
+   inputs 2
+   name Merge2
+   xpos -42
+   ypos 251
+  }
+  Merge2 {
+   inputs 2
+   name Merge3
+   xpos -42
+   ypos 314
+  }
+  Merge2 {
+   inputs 2
+   name Merge4
+   xpos -42
+   ypos 375
+  }
+  Merge2 {
+   inputs 2
+   name Merge5
+   xpos -42
+   ypos 429
+  }
+  Merge2 {
+   inputs 2
+   name Merge6
+   xpos -42
+   ypos 497
+  }
+  Merge2 {
+   inputs 2
+   name Merge7
+   xpos -42
+   ypos 553
+  }
+  Merge2 {
+   inputs 2
+   name Merge8
+   xpos -42
+   ypos 616
+  }
+  Transform {
+   scale {{"\[metadata input/width]/4096 * 2"}}
+   name Transform9
+   xpos -42
+   ypos 650
+   disable true
+  }
+  Transform {
+   center {1024 429}
+   name Transform1
+   xpos -42
+   ypos 684
+   disable true
+  }
+  Dot {
+   name Dot1
+   xpos -8
+   ypos 747
+  }
+push $Ncde9dc00
+  Merge2 {
+   inputs 2
+   name Merge1
+   xpos -101
+   ypos 744
+  }
+  Output {
+   name Output1
+   xpos -101
+   ypos 788
+  }
+push $Ncde49400
+  Viewer {
+   frame_range 101-101
+   name Viewer1
+   xpos -101
+   ypos 853
+  }
+ end_group
+ Dot {
+  name Dot1
+  xpos -87
+  ypos -277
+ }
+set Ncdd17800 [stack 0]
+ Dot {
+  name Dot4
+  xpos 15
+  ypos -277
+ }
+set Ncdd17400 [stack 0]
+ Dot {
+  name Dot5
+  xpos 212
+  ypos -277
+ }
+ Expression {
+  channel0 rgba
+  expr0 "\[metadata exr/arnold/stats/memory/peak]"
+  name Expression4
+  xpos 178
+  ypos -243
+ }
+ Dot {
+  name Dot3
+  xpos 212
+  ypos -179
+ }
+ MergeExpression {
+  inputs 2
+  channel0 rgba
+  expr0 100-(Br*100)/Ar
+  name MemPerc
+  xpos 267
+  ypos -183
+ }
+push $Ncde9ec00
+ Expression {
+  channel0 rgba
+  expr0 "\[metadata exr/arnold/stats/time/render]"
+  name Expression3
+  xpos 70
+  ypos -243
+ }
+push $Ncdd17400
+ Expression {
+  channel0 rgba
+  expr0 "\[metadata exr/arnold/stats/time/render]"
+  name Expression2
+  xpos -19
+  ypos -243
+ }
+ Dot {
+  name Dot2
+  xpos 15
+  ypos -183
+ }
+ MergeExpression {
+  inputs 2
+  channel0 rgba
+  expr0 100-(Br*100)/Ar
+  name renderPerc
+  xpos 70
+  ypos -187
+ }
+push $Ncde9ec00
+ Dot {
+  name Dot8
+  xpos -36
+  ypos -301
+ }
+push $Ncdd17800
+ Switch {
+  inputs 2
+  which {{parent.switch}}
+  name Switch1
+  xpos -121
+  ypos -143
+ }
+ Text2 {
+  font_size_toolbar 100
+  font_width_toolbar 100
+  font_height_toolbar 100
+  message "Render time difference\n\[format %0.2f \[sample renderPerc alpha 0 0]]%\n\nRam usage difference\n\[format %0.2f \[sample MemPerc alpha 0 0]]%\n\n\n\n"
+  old_message {{82 101 110 100 101 114 32 116 105 109 101 32 100 105 102 102 101 114 101 110 99 101 10 48 46 48 48 37 10 10 82 97 109 32 117 115 97 103 101 32 100 105 102 102 101 114 101 110 99 101 10 48 46 48 48 37 10 10 10 10}
+    }
+  old_expression_markers {{23 26 51 54}
+    }
+  box {43.5 326.75 502.5 577.25}
+  transforms {{0 2}
+    }
+  cursor_position 134
+  font {{ Arial : Regular : arial.ttf : 0 }}
+  global_font_scale 0.45
+  center {999 540}
+  cursor_initialised true
+  autofit_bbox false
+  initial_cursor_position {{30.5 644.5}
+    }
+  group_animations {{0} imported: 0 selected: items: "root transform/"}
+  animation_layers {{1 11 999 540 0 0 1 1 0 0 0 0}
+    }
+  color {1 1 1 1}
+  color_panelDropped true
+  enable_shadows true
+  shadow_opacity 1
+  shadow_angle 0
+  shadow_distance 0
+  shadow_size 3
+  name Text3
+  xpos -121
+  ypos -48
+ }
+ Output {
+  name Output1
+  xpos -121
+  ypos 26
+ }
+ Viewer {
+  frame_range 100-100
+  colour_sample_bbox {0.5795795918 -0.2282282263 0.5805805922 -0.2272272259}
+  name Viewer1
+  xpos 72
+  ypos 182
+ }
+end_group

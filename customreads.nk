@@ -1,0 +1,194 @@
+#! C:/Program Files/Nuke13.2v1/nuke-13.2.1.dll -nx
+version 13.2 v1
+define_window_layout_xml {<?xml version="1.0" encoding="UTF-8"?>
+<layout version="1.0">
+    <window x="-1" y="-8" w="3840" h="2107" maximized="1" screen="0">
+        <splitter orientation="1">
+            <split size="2701"/>
+            <splitter orientation="1">
+                <split size="2701"/>
+                <dock id="" activePageId="Viewer.1" focus="true">
+                    <page id="Viewer.1"/>
+                </dock>
+            </splitter>
+            <split size="1135"/>
+            <splitter orientation="2">
+                <split size="1033"/>
+                <dock id="" activePageId="Properties.1">
+                    <page id="Properties.1"/>
+                    <page id="uk.co.thefoundry.backgroundrenderview.1"/>
+                </dock>
+                <split size="1032"/>
+                <dock id="" hideTitles="1" activePageId="DAG.1">
+                    <page id="DAG.1"/>
+                </dock>
+            </splitter>
+        </splitter>
+    </window>
+</layout>
+}
+Root {
+ inputs 0
+ name P:/AndreJukebox/pipe/ajnuke/.nuke/customreads02.nk
+ frame 1065
+ first_frame 1001
+ last_frame 1065
+ format "3840 1613 0 0 3840 1613 1 andre_output_4k"
+ proxy_type scale
+ proxy_format "1024 778 0 0 1024 778 1 1K_Super_35(full-ap)"
+ colorManagement OCIO
+ defaultViewerLUT "OCIO LUTs"
+ workingSpaceLUT scene_linear
+ monitorLut rec709
+ monitorOutLUT "rec709 (default)"
+ int8Lut matte_paint
+ int16Lut texture_paint
+ logLut compositing_log
+ floatLut scene_linear
+ addUserKnob {20 GSV}
+ addUserKnob {4 seqs l seq M {010_NCT 020_MFG}}
+ addUserKnob {4 shots l shot -STARTLINE M {s0010 s0020 s0030 s0050 s0060 s0070 s0100 s0110 s0115 s0120 s0130 s0140 s0150 s0160 s0170 s0180 s0190 s0200 s0210 s0230 s0240 s0250}}
+ shots s0150
+}
+Group {
+ inputs 0
+ name Group1
+ help "Creates all the reads for the found aovs"
+ label "010_NCT_s0170\nenv_all\n\[value Start]-\[value End]\nlatest"
+ note_font "Verdana Bold"
+ note_font_size 15
+ xpos -40
+ ypos -383
+ postage_stamp true
+ addUserKnob {20 customread}
+ addUserKnob {2 project t "Path where the \"episodes\" folders are."}
+ project P:/AndreJukebox_output/renders
+ addUserKnob {1 structure t "Any other folders between the shot folder and the layer folder, in AndreJukebox structure case, final renders are split between lgt (lighting) and nuke (comp)."}
+ structure lgt
+ addUserKnob {22 initialize l Initialize t "Starts the user panel to introduce the episode/sequence/shot/layer/version from which to create the reads." T "import importlib\nimport customread\nimportlib.reload(customread)\ncustomread.customreads().knobstart()" +STARTLINE}
+ addUserKnob {22 clean l Clean t "Reset the node to it's minimal state." -STARTLINE T "import importlib\nimport customread\nimportlib.reload(customread)\ncustomread.customreads().cleannodes()\ncustomread.customreads().cleanui()\n"}
+ addUserKnob {22 reload l Reload t "Reloads all the reads inside the group." -STARTLINE T customread.customreads().reloadreads()}
+ addUserKnob {26 ""}
+ addUserKnob {2 Filepath}
+ Filepath P:/AndreJukebox_output/renders/concept_animatic/010_NCT/s0170/lgt/env_all/latest/beauty/env_all_beauty.%04d.linear.exr
+ addUserKnob {22 fileoverride l Create -STARTLINE T "import importlib\nimport customread\nimportlib.reload(customread)\ncustomread.customreads().cleannodes()\ncustomread.customreads().checkclean()\ncustomread.customreads().customaovharvest()"}
+ addUserKnob {22 openfolder l "Open in Explorer" -STARTLINE T "import importlib\nimport customread\nimportlib.reload(customread)\ncustomread.customreads().openexplorer()"}
+ addUserKnob {22 openrgbarv l "Open in RV" t "Will load rgba sequence from the corresponding layer." -STARTLINE T "import importlib\nimport customread\nimportlib.reload(customread)\ncustomread.customreads().openseqrv()"}
+ addUserKnob {3 Start}
+ Start 1001
+ addUserKnob {3 End -STARTLINE}
+ End 1065
+ addUserKnob {22 set l Set t "Frame override. Type in the frames and hit \"Set\", it will set all the reads inside to the new frame range. Those will be revert back to original frames whenever you hit create again." -STARTLINE T "import importlib\nimport customread\nimportlib.reload(customread)\ncustomread.customreads().overrideframes()"}
+ addUserKnob {26 ""}
+ addUserKnob {20 reads}
+ addUserKnob {4 episode M {concept_animatic lookdev Phases_finalRenders Posters stills}}
+ addUserKnob {4 seq M {010_NCT 020_MFG}}
+ addUserKnob {4 shot M {s0000 s0010 s0020 s0030 s0050 s0060 s0070 s0100 s0110 s0115 s0120 s0130 s0140 s0150 s0160 s0170 s0180 s0190 s0200 s0210 s0230 s0240 s0250}}
+ shot s0170
+ addUserKnob {4 layer M {andre env_all}}
+ layer env_all
+ addUserKnob {4 version M {latest v0001 v0002}}
+ addUserKnob {26 " "}
+ addUserKnob {22 create l Create -STARTLINE T "import importlib\nimport customread\nimportlib.reload(customread)\ncustomread.customreads().checkclean()\ncustomread.customreads().aovharvest()\n"}
+ addUserKnob {22 populate l Re-populate -STARTLINE T "import importlib\nimport customread\nimportlib.reload(customread)\ncustomread.customreads().update()\n"}
+ addUserKnob {20 aov_tab}
+ addUserKnob {22 all -STARTLINE T "import importlib\nimport customread\nimportlib.reload(customread)\ncustomread.customreads().enableallaovs()"}
+ addUserKnob {22 none -STARTLINE T "import importlib\nimport customread\nimportlib.reload(customread)\ncustomread.customreads().disableallaovs()"}
+ addUserKnob {22 shader -STARTLINE T "import importlib\nimport customread\nimportlib.reload(customread)\ncustomread.customreads().shaderaovbutton()"}
+ addUserKnob {22 data -STARTLINE T "import importlib\nimport customread\nimportlib.reload(customread)\ncustomread.customreads().dataaovbutton()"}
+ addUserKnob {22 crypto -STARTLINE T "import importlib\nimport customread\nimportlib.reload(customread)\ncustomread.customreads().cryptoaovbutton()"}
+ addUserKnob {22 lightgroups -STARTLINE T "import importlib\nimport customread\nimportlib.reload(customread)\ncustomread.customreads().lightgroupsaovbutton()"}
+ addUserKnob {22 custom -STARTLINE T "import importlib\nimport customread\nimportlib.reload(customread)\ncustomread.customreads().customaovbutton()"}
+ addUserKnob {1 lgt l "Lightgroups pattern"}
+ lgt lgroup
+ addUserKnob {1 ctm l "Custom pattern"}
+ addUserKnob {6 check_user_crypto_asset l crypto_asset +STARTLINE}
+ addUserKnob {6 check_user_crypto_material l crypto_material +STARTLINE}
+ addUserKnob {6 check_user_crypto_object l crypto_object +STARTLINE}
+}
+ Read {
+  inputs 0
+  file_type exr
+  file P:/AndreJukebox_output/renders/concept_animatic/010_NCT/s0170/lgt/env_all/latest/crypto_asset/env_all_crypto_asset.%04d.linear.exr
+  first 1001
+  last 1065
+  on_error "nearest frame"
+  name crypto_asset
+  disable {{"parent.check_user_crypto_asset == 1 ? 0 : 1"}}
+ }
+ Reformat {
+  filter impulse
+  name crypto_asset_ref
+ }
+ Read {
+  inputs 0
+  file_type exr
+  file P:/AndreJukebox_output/renders/concept_animatic/010_NCT/s0170/lgt/env_all/latest/crypto_material/env_all_crypto_material.%04d.linear.exr
+  first 1001
+  last 1065
+  on_error "nearest frame"
+  name crypto_material
+  disable {{"parent.check_user_crypto_material == 1 ? 0 : 1"}}
+ }
+ Reformat {
+  filter impulse
+  name crypto_material_ref
+ }
+ Read {
+  inputs 0
+  file_type exr
+  file P:/AndreJukebox_output/renders/concept_animatic/010_NCT/s0170/lgt/env_all/latest/crypto_object/env_all_crypto_object.%04d.linear.exr
+  first 1001
+  last 1065
+  on_error "nearest frame"
+  name crypto_object
+  disable {{"parent.check_user_crypto_object == 1 ? 0 : 1"}}
+ }
+ Reformat {
+  filter impulse
+  name crypto_object_ref
+ }
+push 0
+ Read {
+  inputs 0
+  file_type exr
+  file P:/AndreJukebox_output/renders/concept_animatic/010_NCT/s0170/lgt/env_all/latest/beauty/env_all_beauty.%04d.linear.exr
+  first 1001
+  last 1065
+  on_error "nearest frame"
+  name beauty
+ }
+ Reformat {
+  name beauty_ref
+ }
+set Nc9f87400 [stack 0]
+push 0
+ Shuffle2 {
+  inputs 2
+  fromInput1 {{0} A}
+  fromInput2 {{0} B A}
+  name beauty_shf
+ }
+push $Nc9f87400
+ Merge2 {
+  inputs 5+1
+  metainput All
+  Achannels none
+  also_merge all
+  name aovmerge
+ }
+ Output {
+  name Output1
+  xpos 5130
+  ypos 321
+ }
+end_group
+Viewer {
+ frame 1065
+ frame_range 1001-1065
+ viewerProcess "Filmic High Contrast (default)"
+ monitorOutOutputTransform "rec709 (default)"
+ name Viewer1
+ xpos -40
+ ypos -9
+}

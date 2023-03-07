@@ -1,0 +1,24 @@
+#! C:/Program Files/Nuke13.2v5/nuke-13.2.5.dll -nx
+version 13.2 v5
+Group {
+ onCreate "import vegs;vegs.varenable()"
+ name VEG
+ label "\[value this.pattern]"
+ note_font "Verdana Bold"
+ note_font_size 15
+ addUserKnob {20 veg l vegconfig}
+ addUserKnob {1 variable}
+ addUserKnob {1 pattern}
+}
+ Input {
+  inputs 0
+  name Input1
+  xpos 0
+  ypos -560
+ }
+ Output {
+  name Output1
+  xpos 0
+  ypos 210
+ }
+end_group
