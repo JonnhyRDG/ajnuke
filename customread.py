@@ -215,7 +215,6 @@ customread.customreads().""" + aovbutton + 'aovbutton()'
         knobchecks = self.group.allKnobs()
         for i in knobchecks:
             if "check_user" in i.name():
-                print("turn EVERYTHING OFF BIATCH")
                 self.group.knob(i.name()).setValue(0)
             else:
                 pass
@@ -257,13 +256,22 @@ customread.customreads().""" + aovbutton + 'aovbutton()'
     def checkbox(self,checkbox):
         if not checkbox in ("rgba","beauty"):
             checkname = "check_user_" + checkbox
+            checks = self.group.knobs()
+            checkstate = 0
+            if checkname in checks:
+                checkstate = self.group.knobs()[checkname].getValue()
+                print(f'This one {checkname} already existed')
+                removecheck = self.group.knobs()[checkname]
+                self.group.removeKnob(removecheck)
+            else:
+                print(f'creating new {checkname}')
             knobcheck = nuke.Boolean_Knob(checkname, checkbox, 0)
             self.group.addKnob(knobcheck)
-            knobcheck.setValue(1)
+            # knobcheck.setValue(1)
+            knobcheck.setValue(checkstate)
             self.group[checkname].setFlag(nuke.STARTLINE)
 
     def connectchecks(self):
-
         selectreads = nuke.allNodes("Read")
         for t in selectreads:
             if not "beauty" in t.name():
@@ -561,7 +569,7 @@ customread.customreads().realoadfunc"""
     def createfunc(self):
         with self.group:
             self.cleannodes()
-            self.checkclean()
+            # self.checkclean()
             self.aovharvest()
             self.nodeconnect()
             self.connectchecks()
