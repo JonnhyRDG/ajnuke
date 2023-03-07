@@ -570,4 +570,3 @@ customread.customreads().realoadfunc"""
 
     def realoadfunc(self):
         self.update()
-        
