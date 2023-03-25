@@ -577,4 +577,4 @@ customread.customreads().realoadfunc"""
             self.setrootframes()
 
     def realoadfunc(self):
-        self.update()
+        self.update()       
