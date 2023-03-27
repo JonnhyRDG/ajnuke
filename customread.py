@@ -276,10 +276,10 @@ customread.customreads().""" + aovbutton + 'aovbutton()'
         for t in selectreads:
             if not "beauty" in t.name():
                 t.knob("disable").setExpression('parent.check_user_' + t.name() + ' == 1 ? 0 : 1')
-                shufflenames = t.name() + '_shf'
-                shuffles = nuke.toNode(shufflenames)
-                if not "crypto" in t.name():
-                    shuffles.knob("disable").setExpression('parent.check_user_' + t.name() + ' == 1 ? 0 : 1')
+                # shufflenames = t.name() + '_shf'
+                # shuffles = nuke.toNode(shufflenames)
+                # if not "crypto" in t.name():
+                #     shuffles.knob("disable").setExpression('parent.check_user_' + t.name() + ' == 1 ? 0 : 1')
 
     def currentknobs(self):
         self.episode = self.group.knob('episode').value()
@@ -316,9 +316,9 @@ customread.customreads().""" + aovbutton + 'aovbutton()'
 
         for r in reads:
             refin = nuke.toNode(r.name() + '_ref')
-            shfin = nuke.toNode(r.name() + '_shf')
+            # shfin = nuke.toNode(r.name() + '_shf')
             readin = nuke.toNode(r.name())
-            readnodes.append(shfin)
+            readnodes.append(refin)
             if r.name() == "Z":
                 zmergeshuffle = nuke.toNode('Z_shf')
                 readnodes.append(zmergeshuffle)
@@ -328,11 +328,11 @@ customread.customreads().""" + aovbutton + 'aovbutton()'
 
             if r.name() not in ('crypto_asset','crypto_object','crypto_material',self.depthaov):
                 refin.setInput(0, r)
-                shfin.knob('out1').setValue(r.name())
-                if r.name() == "beauty":
-                    shfin.knob('out1').setValue('rgba')
-                shfin.knob('fromInput1').setValue("{1} B A")
-                shfin.setInput(1, refin)
+                # shfin.knob('out1').setValue(r.name())
+                # if r.name() == "beauty":
+                #     shfin.knob('out1').setValue('rgba')
+                # shfin.knob('fromInput1').setValue("{1} B A")
+                # shfin.setInput(1, refin)
             if "crypto" in r.name():
                 refin.setInput(0, readin)
         createMerge = nuke.nodes.Merge2(name="aovmerge", A="none", also_merge="all", metainput="All")
@@ -347,13 +347,13 @@ customread.customreads().""" + aovbutton + 'aovbutton()'
             if "beauty" in refplugs.name():
                 createMerge.setInput(0, refplugs)
                 
-        cryptoreads = nuke.allNodes(filter='Reformat')
-        for plugs in cryptoreads:
-            nro = nro + 1
-            if nro == 2:
-                nro = nro + 1
-            if "crypto" in plugs.name():
-                createMerge.setInput(nro, plugs)
+        # cryptoreads = nuke.allNodes(filter='Reformat')
+        # for plugs in cryptoreads:
+        #     nro = nro + 1
+        #     if nro == 2:
+        #         nro = nro + 1
+        #     if "crypto" in plugs.name():
+        #         createMerge.setInput(nro, plugs)
         nuke.toNode("Output1").setInput(0, nuke.toNode('aovmerge'))
 
     def aovharvest(self):
@@ -410,10 +410,10 @@ customread.customreads().""" + aovbutton + 'aovbutton()'
                     # Create reformats and shuffles
                     if singleaov not in ('crypto_asset','crypto_object','crypto_material','depth','P','N','AA_inv_density','Pref'):# self.depthaov):
                         nuke.nodes.Reformat(name=singleaov + '_ref', filter='Lanczos4')
-                        nuke.nodes.Shuffle2(name=singleaov + '_shf')
+                        # nuke.nodes.Shuffle2(name=singleaov + '_shf')
                     elif singleaov not in self.depthaov:
                         nuke.nodes.Reformat(name=singleaov + '_ref', filter='impulse')
-                        nuke.nodes.Shuffle2(name=singleaov + '_shf')
+                        # nuke.nodes.Shuffle2(name=singleaov + '_shf')
 
 
         else:
@@ -561,9 +561,9 @@ customread.customreads().realoadfunc"""
             if zread.name() in self.depthaov:
                 zread = nuke.toNode(self.depthaov)
                 createZref = nuke.nodes.Reformat(name=self.depthaov + '_ref', filter='impulse')
-                createZmerge = nuke.nodes.Merge2(name=self.depthaov + "_shf", A="none", output = self.depthaov )
+                # createZmerge = nuke.nodes.Merge2(name=self.depthaov + "_shf", A="none", output = self.depthaov )
                 createZref.setInput(0, zread)
-                createZmerge.setInput(0, createZref)
+                # createZmerge.setInput(0, createZref)
 
     # Funtions for the buttons
     def createfunc(self):
@@ -577,4 +577,4 @@ customread.customreads().realoadfunc"""
             self.setrootframes()
 
     def realoadfunc(self):
-        self.update()       
+        self.update()
