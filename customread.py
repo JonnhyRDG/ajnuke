@@ -76,7 +76,8 @@ class customreads():
         self.versionsearchpath = os.path.abspath(versionsearchexp)
         versionfolder = glob.glob(self.versionsearchpath)
         if versionfolder:
-            self.version = versionfolder[0]
+            self.version = versionfolder[-1].rsplit('\\')[-1]
+            print(self.version)
         else:
             self.version = ['']
 
@@ -246,6 +247,9 @@ customread.customreads().""" + aovbutton + 'aovbutton()'
         else:
             itemknob = self.group.knobs()[button]
             itemknob.setValues(additem)
+        if button == "version":
+            if len(additem) >= 1:
+                self.group.knob(button).setValue(additem[-1])
 
     def checkclean(self):
         allchecks = self.group.allKnobs()
@@ -499,7 +503,7 @@ customread.customreads().realoadfunc"""
 
     def read(self):
         knobflick = nuke.thisKnob()
-        if knobflick.name() in ("episode","seq","shot","layer","version"):
+        if knobflick.name() in ("episode","seq","shot","layer"):#,"version"):
             self.update()
 
     # This function will execute the reload from every read node inside the self.group
