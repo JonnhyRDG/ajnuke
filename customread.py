@@ -77,7 +77,7 @@ class customreads():
         versionfolder = glob.glob(self.versionsearchpath)
         if versionfolder:
             self.version = versionfolder[-1].rsplit('\\')[-1]
-            print(self.version)
+            # print(self.version)
         else:
             self.version = ['']
 
@@ -253,27 +253,35 @@ customread.customreads().""" + aovbutton + 'aovbutton()'
 
     def checkclean(self):
         allchecks = self.group.allKnobs()
+        self.checklist = []
         for checks in allchecks:
             if "check_user" in checks.name():
-                self.group.removeKnob(checks)
+                self.checklist.append(checks)
+
+                # self.group.removeKnob(checks)
+        # print(self.checklist)
 
     def checkbox(self,checkbox):
+        self.checklist = []
+        self.checks = self.group.knobs()
         if not checkbox in ("rgba","beauty"):
-            checkname = "check_user_" + checkbox
-            checks = self.group.knobs()
+            self.checkname = "check_user_" + checkbox
             checkstate = 0
-            if checkname in checks:
-                checkstate = self.group.knobs()[checkname].getValue()
-                print(f'This one {checkname} already existed')
-                removecheck = self.group.knobs()[checkname]
+            if self.checkname in self.checks:
+                checkstate = self.group.knobs()[self.checkname].getValue()
+                self.checklist.append(self.checkname)
+                # print(f'This one {self.checkname} already existed')
+                removecheck = self.group.knobs()[self.checkname]
                 self.group.removeKnob(removecheck)
+                
             else:
-                print(f'creating new {checkname}')
-            knobcheck = nuke.Boolean_Knob(checkname, checkbox, 0)
+                print(f'creating new {self.checkname}')
+
+            knobcheck = nuke.Boolean_Knob(self.checkname, checkbox, 0)
             self.group.addKnob(knobcheck)
             # knobcheck.setValue(1)
             knobcheck.setValue(checkstate)
-            self.group[checkname].setFlag(nuke.STARTLINE)
+            self.group[self.checkname].setFlag(nuke.STARTLINE)
 
     def connectchecks(self):
         selectreads = nuke.allNodes("Read")
@@ -383,21 +391,36 @@ customread.customreads().""" + aovbutton + 'aovbutton()'
         aovfolder = aovsplit[-1]
         searchpaths = os.path.abspath(framepath + aovfolder + "/*" + "." + self.extension)
         files = glob.glob(searchpaths)
+        self.old_checks_list = []
+        self.new_checks_list = []
         if files:
-
             # Storing the clean numbers in a variable
             setframestart = self.seqsdict[self.group.knob('seq').value()][self.group.knob('shot').value()]['start']
             setframeend = self.seqsdict[self.group.knob('seq').value()][self.group.knob('shot').value()]['end']
+            for self.old_checks in self.group.knobs():
+                if "check_user_" in self.old_checks:
+                    self.old_checks_list.append(self.old_checks)
+                    # print(self.old_checks)
+                    # print(self.group.knob(self.old_checks))
+                # print(self.old_checks)
+                # checknode = nuke.toNode(self.old_checks)
+                # print(checknode)
+            #     if "check_user_" in self.current_checks['name']:
+            #         self.old_checks_list.append(self.current_checks)
 
+            
             #Create aov tab
             self.createtabs()
             # forming the full paths for found aovs
-            singleaov = []
+
             for aovcomp in aovfolders:
                 singleaov = aovcomp.rsplit("\\", -1)[-1]
-
                 aovfullpath = f"{framepath}{singleaov}/{layer}_{singleaov}.{self.framenr}.{self.colorspace}.{self.extension}"
                 self.checkbox(singleaov)
+                new_check = "check_user_" + singleaov
+                for new_checks in self.group.knobs():
+                    if new_check == new_checks:
+                        self.new_checks_list.append(new_check)
 
             #set paths strings and frame range
                 if "beauty" in singleaov:
@@ -419,11 +442,19 @@ customread.customreads().""" + aovbutton + 'aovbutton()'
                         nuke.nodes.Reformat(name=singleaov + '_ref', filter='impulse')
                         # nuke.nodes.Shuffle2(name=singleaov + '_shf')
 
+            for items in self.old_checks_list:
+                if items not in self.new_checks_list:
+                    self.group.removeKnob(self.group.knob(items))
 
         else:
             print('No proper structure found for f´{layer}')
+        
+        
+        
 
     def customaovharvest(self):
+        self.old_checks_list = []
+        self.new_checks_list = []
         # Clean self.group
         self.cleannodes()
         # STRING EXTRACTION
@@ -436,7 +467,9 @@ customread.customreads().""" + aovbutton + 'aovbutton()'
         # Storing digits between . and a .
         framestart = re.search("\.\d{4}(?:\.*)*", os.path.abspath(seqlist[0]))
         frameend = re.search("\.\d{4}(?:\.*)*", os.path.abspath(seqlist[-1]))
-
+        for self.old_checks in self.group.knobs():
+                if "check_user_" in self.old_checks:
+                    self.old_checks_list.append(self.old_checks)
         # Matching the digits only
         framestartnumber = re.search("\d{4}", framestart.group(0))
         frameendnumber = re.search("\d{4}", frameend.group(0))
@@ -450,10 +483,14 @@ customread.customreads().""" + aovbutton + 'aovbutton()'
 
         # create the reads and the reformats
         aovpaths = glob.glob(aovsearch)
-        
+   
         for aovitem in aovpaths:
             singleaov = aovitem.rsplit('\\')[-1]
             self.checkbox(singleaov)
+            new_check = "check_user_" + singleaov
+            for new_checks in self.group.knobs():
+                    if new_check == new_checks:
+                        self.new_checks_list.append(new_check)
             if "beauty" in aovitem:
                 self.group.knob('Start').setValue(int(setframestart))
                 self.group.knob('End').setValue(int(setframeend))
@@ -467,6 +504,9 @@ customread.customreads().""" + aovbutton + 'aovbutton()'
                 elif singleaov not in self.depthaov:
                     nuke.nodes.Reformat(name=singleaov + '_ref', filter='impulse')
                     nuke.nodes.Shuffle2(name=singleaov + '_shf')
+        for items in self.old_checks_list:
+                if items not in self.new_checks_list:
+                    self.group.removeKnob(self.group.knob(items))
         self.nodeconnect()
         self.connectchecks()
         self.customlabel()
@@ -497,7 +537,7 @@ customread.customreads().createfunc()
             self.group.addKnob(populatebutton)
             nuke.knobTooltip('Group.populate', 'Updates all pulldown items')
             populatecode = """import customread
-customread.customreads().realoadfunc"""
+customread.customreads().realoadfunc()"""
             self.group.knob("populate").setValue(populatecode)
     # For the callback, condition that this knobs show change execute the update() func.
 
@@ -573,8 +613,8 @@ customread.customreads().realoadfunc"""
     def createfunc(self):
         with self.group:
             self.cleannodes()
-            # self.checkclean()
             self.aovharvest()
+            self.checkclean()
             self.nodeconnect()
             self.connectchecks()
             self.labelset()
