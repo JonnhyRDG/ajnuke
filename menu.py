@@ -5,7 +5,7 @@ import shotsetup
 gsv.gsvroot()
 
 toolbar = nuke.toolbar("Nodes")
-m = toolbar.addMenu("André Jukebox", icon="P:/AndreJukebox_dev/Logo/icon.png")
+m = toolbar.addMenu("André Jukebox", icon="P:/AndreJukebox/lib/logo/icon.png")
  
 m.addCommand("aov cc", "nuke.createNode(\"AovCC\")")
 m.addCommand("aov glow", "nuke.createNode(\"AovGlow\")")

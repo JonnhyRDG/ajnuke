@@ -436,10 +436,10 @@ customread.customreads().""" + aovbutton + 'aovbutton()'
 
                     # Create reformats and shuffles
                     if singleaov not in ('crypto_asset','crypto_object','crypto_material','depth','P','N','AA_inv_density','Pref'):# self.depthaov):
-                        nuke.nodes.Reformat(name=singleaov + '_ref', filter='Lanczos4')
+                        nuke.nodes.Reformat(name=singleaov + '_ref', filter='Lanczos4', pbb = "True")
                         # nuke.nodes.Shuffle2(name=singleaov + '_shf')
                     elif singleaov not in self.depthaov:
-                        nuke.nodes.Reformat(name=singleaov + '_ref', filter='impulse')
+                        nuke.nodes.Reformat(name=singleaov + '_ref', filter='impulse', pbb = "True")
                         # nuke.nodes.Shuffle2(name=singleaov + '_shf')
 
             for items in self.old_checks_list:
@@ -499,10 +499,10 @@ customread.customreads().""" + aovbutton + 'aovbutton()'
                 nuke.nodes.Read(file=re.sub(r'\\','/',setpath), first=setframestart, last=setframeend, name=singleaov,
                                 on_error="nearest frame")
                 if singleaov not in ('crypto_asset','crypto_object','crypto_material','depth','P','N','AA_inv_density','Pref'):
-                    nuke.nodes.Reformat(name=singleaov + '_ref', filter='Lanczos4')
+                    nuke.nodes.Reformat(name=singleaov + '_ref', filter='Lanczos4', pbb = "True")
                     nuke.nodes.Shuffle2(name=singleaov + '_shf')
                 elif singleaov not in self.depthaov:
-                    nuke.nodes.Reformat(name=singleaov + '_ref', filter='impulse')
+                    nuke.nodes.Reformat(name=singleaov + '_ref', filter='impulse', pbb = "True")
                     nuke.nodes.Shuffle2(name=singleaov + '_shf')
         for items in self.old_checks_list:
                 if items not in self.new_checks_list:
@@ -604,7 +604,7 @@ customread.customreads().realoadfunc()"""
         for zread in allreads:
             if zread.name() in self.depthaov:
                 zread = nuke.toNode(self.depthaov)
-                createZref = nuke.nodes.Reformat(name=self.depthaov + '_ref', filter='impulse')
+                createZref = nuke.nodes.Reformat(name=self.depthaov + '_ref', filter='impulse', pbb = "True")
                 # createZmerge = nuke.nodes.Merge2(name=self.depthaov + "_shf", A="none", output = self.depthaov )
                 createZref.setInput(0, zread)
                 # createZmerge.setInput(0, createZref)
