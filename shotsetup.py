@@ -5,7 +5,7 @@ import customread
 
 class shotsetup(nukescripts.PythonPanel):
     def __init__(self):
-        nukescripts.PythonPanel.__init__(self,"GSV manager", 'gsvmanager')
+        nukescripts.PythonPanel.__init__(self,"GSV manager", 'com.ohufx.gsvmanager')
         self.jsonread()
         self.knobstart()
         self._knobs_callbacks = {'init':{''}}
@@ -148,8 +148,3 @@ class shotsetup(nukescripts.PythonPanel):
                     customreadfunc.update()
                 # ctms.knob("create").execute()
                 customreadfunc.createfunc()
-
-def addSetupShotPanel():
-	global ssPanel
-	ssPanel = shotsetup()
-	return ssPanel.addToPane()
