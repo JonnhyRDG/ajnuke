@@ -131,6 +131,10 @@ class customreads():
                 self.group.removeKnob(tabs)
 
     def createtabs(self):
+        if self.group.knob("lgt"):
+            self.lgtvar = self.group.knob("lgt").getValue()
+        else:
+            self.lgtvar = "lgroup_"
         self.cleantabs()
         aovtab = nuke.Tab_Knob("aov_tab")
         self.group.addKnob(aovtab)
@@ -156,7 +160,8 @@ customread.customreads().disableallaovs()"""
 customread.customreads().""" + aovbutton + 'aovbutton()'
             self.group.knob(aovbutton).setValue(enablecode)
         self.group.knob('none').setValue(disableallcode)
-        lgtstring = nuke.String_Knob('lgt', 'Lightgroups pattern', 'lgroup')
+
+        lgtstring = nuke.String_Knob('lgt', 'Lightgroups pattern', self.lgtvar)
         self.group.addKnob(lgtstring)
         ctmstring = nuke.String_Knob('ctm', 'Custom pattern', '')
         self.group.addKnob(ctmstring)
