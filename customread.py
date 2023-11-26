@@ -4,6 +4,7 @@ import re
 import glob
 import subprocess
 import json
+import project_dict
 
 class customreads():
     def __init__(self, node=None):
@@ -24,10 +25,12 @@ class customreads():
         self.cryptoaov = ['crypto_asset','crypto_object','crypto_material']
         self.lightgroupsaov = []
         self.customaov = []
-        self.dictread()
+        # self.dictread()
         self.customtypehidden()
+        project_dict.dictread(self)
         # self.knobstart() probar con un if para que no se ejecute cada vez que abro un script.
         nuke.addKnobChanged(self.read, nodeClass='Group', node=self.group)
+        nuke.addOnUserCreate(self.knobstart)
 
     def customtypehidden(self):
         customknobs = self.group.allKnobs()
@@ -37,10 +40,6 @@ class customreads():
         customtype = nuke.Text_Knob('customreadclass', 'customreadclass')
         self.group.addKnob(customtype)
         customtype.setVisible(False)
-
-    def dictread(self):
-        self.seqsdictjson = open('P:/AndreJukebox/aj_seq_dict.json')
-        self.seqsdict = json.load(self.seqsdictjson)
 
     def knobstart(self):
         self.createreadtabs()
@@ -627,3 +626,5 @@ customread.customreads().realoadfunc()"""
 
     def realoadfunc(self):
         self.update()
+
+    

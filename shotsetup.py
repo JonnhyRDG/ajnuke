@@ -2,11 +2,12 @@ import nuke
 import nukescripts
 import json
 import customread
+import project_dict
 
 class shotsetup(nukescripts.PythonPanel):
     def __init__(self):
         nukescripts.PythonPanel.__init__(self,"GSV manager", 'com.ohufx.gsvmanager')
-        self.jsonread()
+        project_dict.dictread(self)
         self.knobstart()
         self._knobs_callbacks = {'init':{''}}
 
@@ -70,10 +71,6 @@ class shotsetup(nukescripts.PythonPanel):
         shot_knob.setValue(updateshot[0])
         nuke.root().knobs()['shots'].setValue(updateshot[0])
         nuke.root().knobs()['seqs'].setValue(self.currentseq)
-
-    def jsonread(self):
-        self.seqsdictjson = open('P:/AndreJukebox/aj_seq_dict.json')
-        self.seqsdict = json.load(self.seqsdictjson)
 
     def knobstart(self):
         addseqitem = []

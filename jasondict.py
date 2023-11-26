@@ -18,30 +18,3 @@ for row in reader:
 
 with open('P:/AndreJukebox/aj_seq_dict.json', 'w') as outdict:
     json.dump(seqsdict, outdict)
-
-
-# import json
-# seqsdictjson = open('P:/AndreJukebox/aj_seq_dict.json')
-# seqsdict = json.load(seqsdictjson)
-# print(seqsdict['020_MFG']['s0260']['end'])
-#
-# seqlist = []
-# shotlist = []
-#
-# for seq in seqsdict:
-#     seqlist.append(seq)
-#
-# seq = '010_NCT'
-#
-# for shot in seqsdict[seq]:
-#         shotlist.append(shot)
-#
-# print(shotlist)
-
-# for seqs in seqsdict:
-#     for shots in seqsdict[seqs]:
-#         check = 'type'
-#         pattern = 'key'
-#         if seqsdict[seqs][shots][check] == pattern:
-#             print(f"{pattern}:{seqs}_{shots} --childs--> {seqsdict[seqs][shots]['childs']}")
-
