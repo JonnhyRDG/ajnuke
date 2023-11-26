@@ -1,16 +1,13 @@
 import nuke
 import json
+import project_dict
 
 class gsvroot():
     def __init__(self):
         self.group = nuke.thisNode()
-        self.jsonread()
+        project_dict.dictread(self)
         self.populateroot()
         nuke.addKnobChanged(self.updateshots)#, nodeClass='Group', node=self.group)
-    
-    def jsonread(self):
-        self.seqsdictjson = open('P:/AndreJukebox/aj_seq_dict.json')
-        self.seqsdict = json.load(self.seqsdictjson)
 
     def populateroot(self):
         self.nukeroot = nuke.root()
