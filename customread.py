@@ -30,18 +30,16 @@ class customreads():
         project_dict.dictread(self)
         # self.knobstart() probar con un if para que no se ejecute cada vez que abro un script.
         nuke.addKnobChanged(self.read, nodeClass='Group', node=self.group)
-        nuke.addOnUserCreate(self.knobstart)
+        # nuke.addOnUserCreate(self.knobstart)
 
     def customtypehidden(self):
-        customknobs = self.group.allKnobs()
-        for knobs in customknobs:
-            if "customreadclass" in knobs.name():
-                self.group.removeKnob(knobs)
-        customtype = nuke.Text_Knob('customreadclass', 'customreadclass')
-        self.group.addKnob(customtype)
-        customtype.setVisible(False)
+        if not self.group.knob("customreadclass"):
+            customtype = nuke.Text_Knob('customreadclass', 'customreadclass')
+            self.group.addKnob(customtype)
+            customtype.setVisible(False)
 
     def knobstart(self):
+        # self.customtypehidden()
         self.createreadtabs()
         epsearchexp = f"{self.project}/*"
         self.epsearchpath = os.path.abspath(epsearchexp)
@@ -344,11 +342,7 @@ customread.customreads().""" + aovbutton + 'aovbutton()'
 
             if r.name() not in ('crypto_asset','crypto_object','crypto_material',self.depthaov):
                 refin.setInput(0, r)
-                # shfin.knob('out1').setValue(r.name())
-                # if r.name() == "beauty":
-                #     shfin.knob('out1').setValue('rgba')
-                # shfin.knob('fromInput1').setValue("{1} B A")
-                # shfin.setInput(1, refin)
+
             if "crypto" in r.name():
                 refin.setInput(0, readin)
         createMerge = nuke.nodes.Merge2(name="aovmerge", A="none", also_merge="all", metainput="All")
@@ -362,14 +356,7 @@ customread.customreads().""" + aovbutton + 'aovbutton()'
         for refplugs in reformatnodes:
             if "beauty" in refplugs.name():
                 createMerge.setInput(0, refplugs)
-                
-        # cryptoreads = nuke.allNodes(filter='Reformat')
-        # for plugs in cryptoreads:
-        #     nro = nro + 1
-        #     if nro == 2:
-        #         nro = nro + 1
-        #     if "crypto" in plugs.name():
-        #         createMerge.setInput(nro, plugs)
+
         nuke.toNode("Output1").setInput(0, nuke.toNode('aovmerge'))
 
     def aovharvest(self):
@@ -404,15 +391,7 @@ customread.customreads().""" + aovbutton + 'aovbutton()'
             for self.old_checks in self.group.knobs():
                 if "check_user_" in self.old_checks:
                     self.old_checks_list.append(self.old_checks)
-                    # print(self.old_checks)
-                    # print(self.group.knob(self.old_checks))
-                # print(self.old_checks)
-                # checknode = nuke.toNode(self.old_checks)
-                # print(checknode)
-            #     if "check_user_" in self.current_checks['name']:
-            #         self.old_checks_list.append(self.current_checks)
 
-            
             #Create aov tab
             self.createtabs()
             # forming the full paths for found aovs
