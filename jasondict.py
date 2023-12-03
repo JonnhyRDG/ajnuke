@@ -11,10 +11,10 @@ for row in reader:
     if seq not in seqsdict:
         seqsdict[seq] = {}
     if shot in seqsdict[seq]:
-        print(f"{self.shot} is duplicated")
+        print(f"{shot} is duplicated")
         continue
     seqsdict[seq][shot] = {'start':row['start'],'end':row['end'],'assets':row['assets'],'cut':row['cut'],
-                           'type':row['type'],'parent':row['parent'],'childs':row['childs']}
+                           'type':row['type'],'parent':row['parent'],'childs':row['childs'],'layers':row['layers']}
 
 with open('P:/AndreJukebox/aj_seq_dict.json', 'w') as outdict:
     json.dump(seqsdict, outdict)
