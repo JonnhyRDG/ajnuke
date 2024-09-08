@@ -22,6 +22,9 @@ class shotsetup(nukescripts.PythonPanel):
             self.syncshot()
             self.shotinfoupdate()
             self.setseqshots()
+        elif knob == self.showknob:
+            self.setseqshots()
+            
 
         # if knob in self._knobs_callbacks:
         #         self._knobs_callbacks[knob]()
@@ -29,6 +32,14 @@ class shotsetup(nukescripts.PythonPanel):
     def syncshot(self):
         self.currentshot = self.knobs()['shot'].value()
         nuke.root().knobs()['shots'].setValue(self.currentshot)
+
+    def buildshow(self):
+        ## This is an arbitrary list, should be changed eventually by database info
+        addshowitem = ['assets','concept_animatic']
+        self.showknob = nuke.Enumeration_Knob('show', 'show', addshowitem)
+        self.addKnob(self.showknob)
+        self.showknob.clearFlag(nuke.STARTLINE)
+        self.setglobalshow()
 
     def shotinfoupdate(self):
         currentseq = self.knobs()['seq'].value()
@@ -73,6 +84,7 @@ class shotsetup(nukescripts.PythonPanel):
         nuke.root().knobs()['seqs'].setValue(self.currentseq)
 
     def knobstart(self):
+        self.buildshow()
         addseqitem = []
         for seqs in self.seqsdict:
             addseqitem.append(seqs)
@@ -105,6 +117,11 @@ class shotsetup(nukescripts.PythonPanel):
         self.addKnob(shotinfotabline)
         self.shotinfo()
 
+    def setglobalshow(self):
+        globalshow = nuke.root().knobs()['show'].value()
+        seqknob = self.knobs()['show']
+        seqknob.setValue(globalshow)
+
     def setglobalseq(self):
         globalseq = nuke.root().knobs()['seqs'].value()
         seqknob = self.knobs()['seq']
@@ -117,10 +134,13 @@ class shotsetup(nukescripts.PythonPanel):
 
     def setseqshots(self):
         allcustoms = nuke.allNodes('Group')
+        self.currentshow = self.knobs()['show'].value() 
         self.currentseq = self.knobs()['seq'].value()
         self.currentshot = self.knobs()['shot'].value()
+        nuke.root().knobs()['show'].setValue(self.currentshow)
         nuke.root().knobs()['seqs'].setValue(self.currentseq)
         nuke.root().knobs()['shots'].setValue(self.currentshot)
+    
         
         # import ptvsd
         # ptvsd.enable_attach(address=('localhost',3000))

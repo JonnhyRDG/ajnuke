@@ -13,9 +13,18 @@ class gsvroot():
         self.nukeroot = nuke.root()
         tab = nuke.Tab_Knob("GSV")
         self.nukeroot.addKnob(tab)
+        self.buildshow()
         self.buildseqs()
         self.buildshots()
         self.shotinfo()
+        # self.updateshots()
+
+    def buildshow(self):
+        ## This is an arbitrary list, should be changed eventually by database info
+        addshowitem = ['assets','concept_animatic']
+        showknob = nuke.Enumeration_Knob('show', 'show', addshowitem)
+        self.nukeroot.addKnob(showknob)
+        showknob.clearFlag(nuke.STARTLINE)
 
     def buildseqs(self):
         addseqitem = []

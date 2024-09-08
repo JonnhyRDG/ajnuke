@@ -31,6 +31,7 @@ class customreads():
         # self.knobstart() probar con un if para que no se ejecute cada vez que abro un script.
         nuke.addKnobChanged(self.read, nodeClass='Group', node=self.group)
         # nuke.addOnUserCreate(self.knobstart)
+        # self.knobstart()
 
     def customtypehidden(self):
         if not self.group.knob("customreadclass"):
@@ -90,8 +91,12 @@ class customreads():
             searchpath = buttondict[buttons]
             self.buttongenerate(button=buttons,searchpath=searchpath)
         self.usergui()
+        self.group.knobs()['episode'].setValue(nuke.root().knobs()['show'].value())
         self.group.knobs()['seq'].setValue(nuke.root().knobs()['seqs'].value())
         self.group.knobs()['shot'].setValue(nuke.root().knobs()['shots'].value())
+        self.group.knobs()['seq'].clearFlag(nuke.STARTLINE)
+        self.group.knobs()['shot'].clearFlag(nuke.STARTLINE)
+        self.group.knobs()['version'].clearFlag(nuke.STARTLINE)
 
     def cleanui(self):
         all_knobs = self.group.allKnobs()
@@ -131,7 +136,7 @@ class customreads():
         if self.group.knob("lgt"):
             self.lgtvar = self.group.knob("lgt").getValue()
         else:
-            self.lgtvar = "lgroup_"
+            self.lgtvar = "lg_"
         self.cleantabs()
         aovtab = nuke.Tab_Knob("aov_tab")
         self.group.addKnob(aovtab)
@@ -370,11 +375,14 @@ customread.customreads().""" + aovbutton + 'aovbutton()'
         layer = self.group.knob('layer').value()
         version = self.group.knob('version').value()
 
+        print(version)
+
         # STRING EXTRACTION
         # Sequence path
         framepath = f"{project}/{episode}/{seq}/{shot}/{structure}/{layer}/{version}/"
         # Converting all / to system defaults
         searchaovs = os.path.abspath(framepath + "*")
+
 
         # listing aov folders
         aovfolders = glob.glob(searchaovs)
