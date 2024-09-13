@@ -31,7 +31,7 @@ m.addCommand("apChroma", "nuke.createNode(\"apChroma\")")
 m.addCommand("apGlow", "nuke.createNode(\"apGlow\")")
 m.addCommand("aPMatte", "nuke.createNode(\"aPMatte\")")
 
-nuke.addFormat("2048 858 andre_output")
+nuke.addFormat("2560 1075 andre_output")
 nuke.addFormat("3840 1613 andre_output_4k")
 
 import DeadlineNukeClient
