@@ -271,7 +271,7 @@ customread.customreads().""" + aovbutton + 'aovbutton()'
     def checkbox(self,checkbox):
         self.checklist = []
         self.checks = self.group.knobs()
-        if not checkbox in ("rgba","beauty"):
+        if "rgba" not in checkbox:
             self.checkname = "check_user_" + checkbox
             checkstate = 0
             if self.checkname in self.checks:
@@ -375,7 +375,7 @@ customread.customreads().""" + aovbutton + 'aovbutton()'
         layer = self.group.knob('layer').value()
         version = self.group.knob('version').value()
 
-        print(version)
+        # print(version)
 
         # STRING EXTRACTION
         # Sequence path
@@ -392,6 +392,7 @@ customread.customreads().""" + aovbutton + 'aovbutton()'
         files = glob.glob(searchpaths)
         self.old_checks_list = []
         self.new_checks_list = []
+
         if files:
             # Storing the clean numbers in a variable
             setframestart = self.seqsdict[self.group.knob('seq').value()][self.group.knob('shot').value()]['start']
@@ -405,9 +406,10 @@ customread.customreads().""" + aovbutton + 'aovbutton()'
             # forming the full paths for found aovs
 
             for aovcomp in aovfolders:
+
                 singleaov = aovcomp.rsplit("\\", -1)[-1]
                 aovfullpath = f"{framepath}{singleaov}/{layer}_{singleaov}.{self.framenr}.{self.colorspace}.{self.extension}"
-                self.checkbox(singleaov)
+                # self.checkbox(singleaov)
                 new_check = "check_user_" + singleaov
                 for new_checks in self.group.knobs():
                     if new_check == new_checks:
@@ -420,18 +422,20 @@ customread.customreads().""" + aovbutton + 'aovbutton()'
                     self.group.knob('End').setValue(int(setframeend))
 
                 # create the reads
-                if not "rgba" in singleaov:
+                
+                if "rgba" not in singleaov and "Variance" not in singleaov and "denoise" not in singleaov:
+                    self.checkbox(singleaov)
+                    # print(singleaov)
                     nukepaths = re.sub(r"\\", "/", aovfullpath)
                     nuke.nodes.Read(file=nukepaths, first=setframestart, last=setframeend, name=singleaov,
                                     on_error="nearest frame")
 
                     # Create reformats and shuffles
-                    if singleaov not in ('crypto_asset','crypto_object','crypto_material','depth','P','N','AA_inv_density','Pref'):# self.depthaov):
+                    if singleaov not in ('crypto_asset','crypto_object','crypto_material','depth','P','N','AA_inv_density','Pref'):
                         nuke.nodes.Reformat(name=singleaov + '_ref', filter='Lanczos4', pbb = "True")
-                        # nuke.nodes.Shuffle2(name=singleaov + '_shf')
                     elif singleaov not in self.depthaov:
                         nuke.nodes.Reformat(name=singleaov + '_ref', filter='impulse', pbb = "True")
-                        # nuke.nodes.Shuffle2(name=singleaov + '_shf')
+
 
             for items in self.old_checks_list:
                 if items not in self.new_checks_list:
