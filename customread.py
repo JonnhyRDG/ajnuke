@@ -27,7 +27,7 @@ class customreads():
         self.customaov = []
         # self.dictread()
         self.customtypehidden()
-        project_dict.dictread(self)
+        project_dict.proj_dict().dictread()
         # self.knobstart() probar con un if para que no se ejecute cada vez que abro un script.
         nuke.addKnobChanged(self.read, nodeClass='Group', node=self.group)
         # nuke.addOnUserCreate(self.knobstart)
@@ -395,8 +395,8 @@ customread.customreads().""" + aovbutton + 'aovbutton()'
 
         if files:
             # Storing the clean numbers in a variable
-            setframestart = self.seqsdict[self.group.knob('seq').value()][self.group.knob('shot').value()]['start']
-            setframeend = self.seqsdict[self.group.knob('seq').value()][self.group.knob('shot').value()]['end']
+            setframestart = project_dict.proj_dict().seqsdict[self.group.knob('seq').value()][self.group.knob('shot').value()]['start']
+            setframeend = project_dict.proj_dict().seqsdict[self.group.knob('seq').value()][self.group.knob('shot').value()]['end']
             for self.old_checks in self.group.knobs():
                 if "check_user_" in self.old_checks:
                     self.old_checks_list.append(self.old_checks)
@@ -470,8 +470,8 @@ customread.customreads().""" + aovbutton + 'aovbutton()'
         frameendnumber = re.search("\d{4}", frameend.group(0))
 
         # Storing the clean numbers in a variable
-        setframestart = self.seqsdict[self.group.knob('seq').value()][self.group.knob('shot').value()]['start']#framestartnumber.group(0)
-        setframeend = self.seqsdict[self.group.knob('seq').value()][self.group.knob('shot').value()]['end']#frameendnumber.group(0)
+        setframestart = project_dict.proj_dict().seqsdict[self.group.knob('seq').value()][self.group.knob('shot').value()]['start']#framestartnumber.group(0)
+        setframeend = project_dict.proj_dict().seqsdict[self.group.knob('seq').value()][self.group.knob('shot').value()]['end']#frameendnumber.group(0)
 
         #create tabs
         self.createtabs()
@@ -589,8 +589,8 @@ customread.customreads().realoadfunc()"""
         os.system(f'start cmd /c {cmline}')
 
     def setrootframes(self):
-        rootframestart = self.seqsdict[self.group.knob('seq').value()][self.group.knob('shot').value()]['start']
-        rootframeend = self.seqsdict[self.group.knob('seq').value()][self.group.knob('shot').value()]['end']
+        rootframestart = project_dict.proj_dict().seqsdict[self.group.knob('seq').value()][self.group.knob('shot').value()]['start']
+        rootframeend = project_dict.proj_dict().seqsdict[self.group.knob('seq').value()][self.group.knob('shot').value()]['end']
         nuke.root().knobs()['first_frame'].setValue(int(rootframestart))
         nuke.root().knobs()['last_frame'].setValue(int(rootframeend))
 

@@ -7,7 +7,7 @@ import project_dict
 class shotsetup(nukescripts.PythonPanel):
     def __init__(self):
         nukescripts.PythonPanel.__init__(self,"GSV manager", 'com.ohufx.gsvmanager')
-        project_dict.dictread(self)
+        project_dict.proj_dict().dictread()
         self.knobstart()
         self._knobs_callbacks = {'init':{''}}
 
@@ -44,28 +44,28 @@ class shotsetup(nukescripts.PythonPanel):
     def shotinfoupdate(self):
         currentseq = self.knobs()['seq'].value()
         currentshot = self.knobs()['shot'].value()
-        shottype = self.seqsdict[currentseq][currentshot]['type']
+        shottype = project_dict.proj_dict().seqsdict[currentseq][currentshot]['type']
         self.knobs()['shottypebtn'].setValue(shottype)
 
-        shotparent = self.seqsdict[currentseq][currentshot]['parent']
+        shotparent = project_dict.proj_dict().seqsdict[currentseq][currentshot]['parent']
         self.knobs()['parentbtn'].setValue(shotparent)
 
-        shotchilds = self.seqsdict[currentseq][currentshot]['childs']
+        shotchilds = project_dict.proj_dict().seqsdict[currentseq][currentshot]['childs']
         shotchildslist = shotchilds.replace(","," ")
         self.knobs()['childsbtn'].setValue(shotchildslist)
     
     def shotinfo(self):
         currentseq = self.knobs()['seq'].value()
         currentshot = self.knobs()['shot'].value()
-        shottype = self.seqsdict[currentseq][currentshot]['type']
+        shottype = project_dict.proj_dict().seqsdict[currentseq][currentshot]['type']
         shottypebutton = nuke.Text_Knob('shottypebtn', 'Shot Type', shottype)
         self.addKnob(shottypebutton)
 
-        shotparent = self.seqsdict[currentseq][currentshot]['parent']
+        shotparent = project_dict.proj_dict().seqsdict[currentseq][currentshot]['parent']
         parentbutton = nuke.Text_Knob('parentbtn', 'Parent', shotparent)
         self.addKnob(parentbutton)
         
-        shotchilds = self.seqsdict[currentseq][currentshot]['childs']
+        shotchilds = project_dict.proj_dict().seqsdict[currentseq][currentshot]['childs']
         shotchildslist = shotchilds.replace(","," ")
         childsbutton = nuke.Text_Knob('childsbtn', 'Child List', shotchildslist)
         self.addKnob(childsbutton)
@@ -75,7 +75,7 @@ class shotsetup(nukescripts.PythonPanel):
         self.currentshot = self.knobs()['shot'].value()
         shot_knob = self.knobs()['shot']
         updateshot = []
-        for newshots in self.seqsdict[self.currentseq]:
+        for newshots in project_dict.proj_dict().seqsdict[self.currentseq]:
             updateshot.append(newshots)
         shot_knob.setValues(updateshot)
         nuke.root().knobs()['shots'].setValues(updateshot)
@@ -86,7 +86,7 @@ class shotsetup(nukescripts.PythonPanel):
     def knobstart(self):
         self.buildshow()
         addseqitem = []
-        for seqs in self.seqsdict:
+        for seqs in project_dict.proj_dict().seqsdict:
             addseqitem.append(seqs)
         self.seqknob = nuke.Enumeration_Knob('seq', 'seq', addseqitem)
         self.addKnob(self.seqknob)
@@ -94,7 +94,7 @@ class shotsetup(nukescripts.PythonPanel):
 
         addshotitem = []
         currentseq = self.knobs()['seq'].value()
-        for shots in self.seqsdict[currentseq]:
+        for shots in project_dict.proj_dict().seqsdict[currentseq]:
             addshotitem.append(shots)
         self.shotknob = nuke.Enumeration_Knob('shot', 'shot', addshotitem)
         self.addKnob(self.shotknob)
