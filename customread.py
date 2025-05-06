@@ -288,6 +288,8 @@ customread.customreads().""" + aovbutton + 'aovbutton()'
             self.group.addKnob(knobcheck)
             # knobcheck.setValue(1)
             knobcheck.setValue(checkstate)
+            if "lg_" in knobcheck.name():
+                knobcheck.setValue(1)
             self.group[self.checkname].setFlag(nuke.STARTLINE)
 
     def connectchecks(self):

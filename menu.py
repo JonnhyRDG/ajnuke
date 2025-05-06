@@ -30,6 +30,8 @@ m.addCommand("veg", "nuke.createNode(\"veg\")")
 m.addCommand("apChroma", "nuke.createNode(\"apChroma\")")
 m.addCommand("apGlow", "nuke.createNode(\"apGlow\")")
 m.addCommand("aPMatte", "nuke.createNode(\"aPMatte\")")
+m.addCommand("FireflyKiller", "nuke.createNode(\"FireflyKiller\")")
+m.addCommand("ZOpticals_v1_1_nk15", "nuke.createNode(\"ZOpticals_v1_1_nk15\")")
 
 nuke.addFormat("2560 1075 andre_output")
 nuke.addFormat("3840 1613 andre_output_4k")
