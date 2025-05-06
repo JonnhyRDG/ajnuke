@@ -1,5 +1,4 @@
 import nuke
-import json
 import project_dict
 
 class gsvroot():
@@ -7,7 +6,6 @@ class gsvroot():
         self.group = nuke.thisNode()
         project_dict.proj_dict().dictread()
         self.populateroot()
-        nuke.addKnobChanged(self.updateshots)#, nodeClass='Group', node=self.group)
 
     def populateroot(self):
         self.nukeroot = nuke.root()
@@ -73,8 +71,8 @@ class gsvroot():
     # callbacks!
 
     def updateshots(self):
-        knoblfick = nuke.thisKnob()
-        if knoblfick.name() in ('seqs','shots'):
+        knobflick = nuke.thisKnob()
+        if knobflick.name() in ('seqs','shots'):
             print('gsv callback!')
             self.currentseq = nuke.root().knobs()['seqs'].value()
             shot_knob = nuke.root().knobs()['shots']

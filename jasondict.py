@@ -23,7 +23,6 @@ class json_exp():
             if seq not in self.seqsdict:
                 self.seqsdict[seq] = {}
             if shot in self.seqsdict[seq]:
-                # print(f"{shot} is duplicated")
                 continue
             self.seqsdict[seq][shot] = {'start':row['start'],'end':row['end'],'assets':row['assets'],'cut':row['cut'],
                                 'type':row['type'],'parent':row['parent'],'childs':row['childs'],'layers':row['layers'],
@@ -41,7 +40,6 @@ class json_exp():
             if type not in self.assetdict:
                 self.assetdict[type] = {}
             if asset in self.assetdict[type]:
-                print(f"{asset} is duplicated")
                 continue
             self.assetdict[type][asset] = {'start':row['start'],'end':row['end'],'layers':row['layers'],'file':row['file']}
         with open('P:/AndreJukebox/aj_asset_dict.json', 'w') as outdict:
